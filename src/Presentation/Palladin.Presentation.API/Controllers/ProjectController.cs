@@ -89,15 +89,13 @@ namespace Palladin.Presentation.API.Controllers
                 var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
                 var handler = new JwtSecurityTokenHandler();
 
-                model.UserId = Guid.Parse(handler.ReadJwtToken(token).Claims.ToList()[0].Value);
-
-                this._projectService.CreateProject(model);
+                model.UserId = Guid.Parse(handler.ReadJwtToken(token).Claims.ToList().Find(x => x.Type.Contains("nameidentifier")).Value);
 
                 return Ok(new ResultResponseViewModel<ProjectViewModel>
                 {
-
                     IsSuccess = true,
-                    Message = "Projeto criado com sucesso."
+                    Message = "Projeto criado com sucesso.",
+                    Response = this._projectService.CreateProject(model)
                 });
             }
             catch (Exception e)
@@ -113,6 +111,46 @@ namespace Palladin.Presentation.API.Controllers
             {
                 this._projectService.RemoveById(id);
                 return Ok(new ResultResponseViewModel<ProjectViewModel> { IsSuccess = true, Message = "Projeto removido com sucesso." });
+            }
+            catch (Exception e)
+            {
+                return Ok(new ResultResponseViewModel<string>() { IsSuccess = false, Message = "Falha ao remover projeto, tente novamente ou contate o adminsitrador.", Response = e.Message });
+            }
+        }
+
+        [HttpGet("getTypeAhead")]
+        public IActionResult GetTypeAheadList()
+        {
+            try
+            {
+                return Ok(new ResultResponseViewModel<IEnumerable<TypeAheadProjectViewModel>>
+                {
+                    IsSuccess = true,
+                    Response = this._projectService.GetTypeAheadList()
+                });
+            }
+            catch (Exception e)
+            {
+                return Ok(new ResultResponseViewModel<string>() { IsSuccess = false, Message = "Não foi possível listar os projetos, tente novamente mais tarde ou contate o adminsitrador.", Response = e.Message });
+            }
+        }
+
+        [HttpPost("join-project")]
+        public IActionResult JoinProjectWithVulnerability([FromBody] JoinProjectViewModel model)
+        {
+            try
+            {
+                var token = Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+                var handler = new JwtSecurityTokenHandler();
+
+                model.UserId = Guid.Parse(handler.ReadJwtToken(token).Claims.ToList().Find(x => x.Type.Contains("nameidentifier")).Value);
+
+                return Ok(new ResultResponseViewModel<List<string>>()
+                {
+                    IsSuccess = true,
+                    Message = "Vinculação criada com sucesso.",
+                    Response = this._projectService.JoinProjectWithVulnerability(model).ToList()
+                });
             }
             catch (Exception e)
             {

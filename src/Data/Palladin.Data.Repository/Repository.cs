@@ -82,5 +82,10 @@ namespace Palladin.Data.Repository
         {
             _context.Set<TEntity>().RemoveRange(entities);
         }
+
+        public bool Any(Expression<Func<TEntity, bool>> filter)
+        {
+            return _context.Set<TEntity>().Any(filter);
+        }
     }
 }

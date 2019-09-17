@@ -47,30 +47,34 @@ namespace Palladin.Data.EntityFramework
 
             #region [Relationship]
             //ProjectEntity
-            modelBuilder.Entity<ProjectEntity>()
-                .HasOne<UserEntity>(project => project.User)
-                .WithOne(user => user.Project)
-                .HasForeignKey<ProjectEntity>(x => x.UserId);
+            modelBuilder.Entity<ProjectEntity>().Ignore(x => x.User);
+            modelBuilder.Entity<ProjectEntity>().Ignore(x => x.Customer);
+            //modelBuilder.Entity<ProjectEntity>()
+            //    .HasOne<UserEntity>(project => project.User)
+            //    .WithOne(user => user.Project)
+            //    .HasForeignKey<ProjectEntity>(x => x.UserId);
 
             //modelBuilder.Entity<ProjectEntity>()
             //    .HasOne<UserEntity>(project => project.Customer)
             //    .WithOne(user => user.Project)
-            //    .HasForeignKey<ProjectEntity>(x => x.CustomerId)
-            //    .OnDelete(DeleteBehavior.Restrict);
+            //    .HasForeignKey<ProjectEntity>(x => x.CustomerId);
 
             //ProjectVulnerabilityEntity
             modelBuilder.Entity<ProjectVulnerabilityEntity>()
                 .HasOne<MethodProtocolEntity>(pv => pv.MethodProtocol)
                 .WithOne(mp => mp.ProjectVulnerability)
-                .HasForeignKey<ProjectVulnerabilityEntity>(x => x.MethodProtocolId);
+                .HasForeignKey<ProjectVulnerabilityEntity>(x => x.MethodProtocolId)
+                .OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<ProjectVulnerabilityEntity>()
                 .HasOne<ProjectEntity>(pv => pv.Project)
                 .WithOne(mp => mp.ProjectVulnerability)
-                .HasForeignKey<ProjectVulnerabilityEntity>(x => x.ProjectId);
+                .HasForeignKey<ProjectVulnerabilityEntity>(x => x.ProjectId)
+                .OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<ProjectVulnerabilityEntity>()
                 .HasOne<VulnerabilityEntity>(pv => pv.Vulnerability)
                 .WithOne(mp => mp.ProjectVulnerability)
-                .HasForeignKey<ProjectVulnerabilityEntity>(x => x.VulnerabilityId);
+                .HasForeignKey<ProjectVulnerabilityEntity>(x => x.VulnerabilityId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             //VulnerabilityLangEntity
             modelBuilder.Entity<VulnerabilityLangEntity>()
@@ -143,35 +147,40 @@ namespace Palladin.Data.EntityFramework
                     Id = Guid.NewGuid(),
                     MenuId = menuId1,
                     Name = "Projetos",
-                    Path = "/project"
+                    Path = "/project",
+                    Order = 0
                 },
                 new MenuItemEntity
                 {
                     Id = Guid.NewGuid(),
                     MenuId = menuId2,
                     Name = "Projetos",
-                    Path = "/admin/project"
+                    Path = "/admin/project",
+                    Order = 0
                 },
                 new MenuItemEntity
                 {
                     Id = Guid.NewGuid(),
                     MenuId = menuId1,
                     Name = "Comparar Projetos",
-                    Path = "/compare"
+                    Path = "/compare",
+                    Order = 1
                 },
                 new MenuItemEntity
                 {
                     Id = Guid.NewGuid(),
                     MenuId = menuId2,
                     Name = "Vulnerabilidades",
-                    Path = "/admin/vulnerability"
+                    Path = "/admin/vulnerability",
+                    Order = 1
                 },
                 new MenuItemEntity
                 {
                     Id = Guid.NewGuid(),
                     MenuId = menuId2,
                     Name = "Vinculação",
-                    Path = "/admin/join-project"
+                    Path = "/admin/join-project",
+                    Order = 2
                 }
             );
 
@@ -221,6 +230,34 @@ namespace Palladin.Data.EntityFramework
                     uma nova conta foi criada.",
                     Remediation = @"Introduza uma política de senha forte (que garanta o tamanho, a complexidade, a reutilização e o envelhecimento da senha) e/ou
                     controles de autenticação adicionais (duplo fator de autenticação)."
+                }
+            );
+
+            //Method Protocol
+            modelBuilder.Entity<MethodProtocolEntity>().HasData(
+                new MethodProtocolEntity
+                {
+                    Id = Guid.NewGuid(),
+                    IsDeleted = false,
+                    Name = "GET"
+                },
+                new MethodProtocolEntity
+                {
+                    Id = Guid.NewGuid(),
+                    IsDeleted = false,
+                    Name = "POST"
+                },
+                new MethodProtocolEntity
+                {
+                    Id = Guid.NewGuid(),
+                    IsDeleted = false,
+                    Name = "PUT"
+                },
+                new MethodProtocolEntity
+                {
+                    Id = Guid.NewGuid(),
+                    IsDeleted = false,
+                    Name = "DELETE"
                 }
             );
             #endregion

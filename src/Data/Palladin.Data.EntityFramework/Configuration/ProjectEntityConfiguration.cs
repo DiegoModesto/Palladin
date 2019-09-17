@@ -10,6 +10,7 @@ namespace Palladin.Data.EntityFramework.Configuration
         {
             builder.HasKey(x => x.Id);
 
+            builder.Property(x => x.Name).HasColumnType("varchar(80)").IsRequired(false);
             builder.Property(x => x.InitialDate).HasColumnType("datetime2").IsRequired();
             builder.Property(x => x.EndDate).HasColumnType("datetime2").IsRequired();
             builder.Property(x => x.ProjectType).HasColumnType("smallint").IsRequired();

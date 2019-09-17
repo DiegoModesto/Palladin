@@ -36,6 +36,10 @@ namespace Palladin.Data.Repository
             this._vulnerabilityLangR = new VulnerabilityLangRepository(this._ctx);
             this._vulnerabilityR = new VulnerabilityRepository(this._ctx);
             this._projectR = new ProjectRepository(this._ctx);
+            this._projectVultR = new ProjectVulnerabilityRepository(this._ctx);
+            this._methodProtocolR = new MethodProtocolRepository(this._ctx);
+            this._mediaR = new MediaRepository(this._ctx);
+            this._mediaPvR = new MediaPVRepository(this._ctx);
 
             this._tokenR = new TokenRepository(this._ctx);
             #endregion
@@ -52,6 +56,11 @@ namespace Palladin.Data.Repository
             this._userR = new UserRepository();
             this._vulnerabilityLangR = new VulnerabilityLangRepository();
             this._vulnerabilityR = new VulnerabilityRepository();
+            this._projectR = new ProjectRepository();
+            this._projectVultR = new ProjectVulnerabilityRepository();
+            this._methodProtocolR = new MethodProtocolRepository();
+            this._mediaR = new MediaRepository();
+            this._mediaPvR = new MediaPVRepository();
 
             this._tokenR = new TokenRepository();
             #endregion
@@ -71,7 +80,13 @@ namespace Palladin.Data.Repository
 
         public IProjectRepository _projectR { get; private set; }
 
+        public IProjectVulnerabilityRepository _projectVultR { get; private set; }
+
         public ITokenRepository _tokenR { get; private set; }
+
+        public IMethodProtocolRepository _methodProtocolR { get; private set; }
+        public IMediaRepository _mediaR { get; private set; }
+        public IMediaPVRepository _mediaPvR { get; private set; }
 
         public int Complete()
         {

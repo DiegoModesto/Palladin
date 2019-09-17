@@ -1,6 +1,7 @@
 ﻿using Palladin.Services.LogicService.Interfaces;
 using Palladin.Services.ViewModel.User;
 using System;
+using System.Collections.Generic;
 
 namespace Palladin.Services.LogicService.AuthenticationLogic
 {
@@ -13,5 +14,6 @@ namespace Palladin.Services.LogicService.AuthenticationLogic
         void SaveRefreshToken(Guid userId, string token);
         void SaveRefreshToken(string user, string token);
         string Cipher(string pass);
+        IEnumerable<CustomerViewModel> GetCustomers();
     }
 }

@@ -8,9 +8,11 @@ namespace Palladin.Services.LogicService.ProjectLogic
     public interface IProjectLogic : IBaseLogic
     {
         IEnumerable<ProjectViewModel> GetProjectsGeneralList();
+        IEnumerable<TypeAheadProjectViewModel> GetTypeAheadList();
         ProjectViewModel GetDetailProjectById(Guid id);
-        void CreateProject(ProjectViewModel model);
+        ProjectViewModel CreateProject(ProjectViewModel model);
         void UpdateProject(ProjectViewModel model);
         void RemoveById(Guid id);
+        IEnumerable<string> JoinProjectWithVulnerability(JoinProjectViewModel model);
     }
 }

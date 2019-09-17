@@ -3,6 +3,8 @@ using Palladin.Data.Entity;
 using Palladin.Data.Repository;
 using Palladin.Services.ViewModel.User;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Palladin.Services.LogicService.AuthenticationLogic
 {
@@ -26,6 +28,15 @@ namespace Palladin.Services.LogicService.AuthenticationLogic
                     return this._mapp.Map<UserEntity, UserViewModel>(user);
 
                 throw new System.Exception("Usuário e/ou Senha inválidos");
+            }
+        }
+
+        public IEnumerable<CustomerViewModel> GetCustomers()
+        {
+            using(var uow = new UnitOfWork(ConnectionString))
+            {
+                return _mapp.Map<IEnumerable<UserEntity>, IEnumerable<CustomerViewModel>>(uow._userR.GetAll()
+                    .Where(x => x.UserType.Equals(Enums.UserType.Client)));
             }
         }
 

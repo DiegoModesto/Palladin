@@ -10,6 +10,13 @@ namespace Palladin.Data.Repository.Interfaces
         IUserRepository _userR { get; }
         IVulnerabilityLangRepository _vulnerabilityLangR { get; }
         IVulnerabilityRepository _vulnerabilityR { get; }
+        IProjectRepository _projectR { get; }
+        IProjectVulnerabilityRepository _projectVultR { get; }
+        ITokenRepository _tokenR { get; }
+        IMethodProtocolRepository _methodProtocolR { get; }
+        IMediaRepository _mediaR { get; }
+        IMediaPVRepository _mediaPvR { get; }
+
         int Complete();
     }
 }

@@ -27,6 +27,7 @@ namespace Palladin.Data.Repository.PublicRepository
                    select new ProjectEntity()
                    {
                        Id = p.Id,
+                       Name = p.Name,
                        CreatedDate = p.CreatedDate,
                        Customer = cus,
                        User = uss,

@@ -5,6 +5,7 @@ using Palladin.Services.LogicService.Interfaces;
 using Palladin.Services.ViewModel.User;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Palladin.Services.LogicService.MenusLogic
 {
@@ -26,7 +27,7 @@ namespace Palladin.Services.LogicService.MenusLogic
                 {
                     var menuId = uow._userMenuR.SingleOrDefault(x => x.UserId.Equals(id)).MenuId;
                     var menu = uow._menuR.SingleOrDefault(x => x.Id.Equals(menuId));
-                    var menusItem = uow._menuItemR.Find(x => x.MenuId.Equals(menuId));
+                    var menusItem = uow._menuItemR.Find(x => x.MenuId.Equals(menuId)).OrderBy(x => x.Order);
 
                     menuViewModel = this._mapp.Map<MenuEntity, MenuViewModel>(menu);
                     menuViewModel.MenuItems = this._mapp.Map<IEnumerable<MenuItemEntity>, IEnumerable<MenuItemViewModel>>(menusItem);

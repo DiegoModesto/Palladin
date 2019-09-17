@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore.Internal;
 using Palladin.Data.Entity;
+using Palladin.Services.LogicService.AuthenticationLogic;
 using Palladin.Services.ViewModel.Project;
 using Palladin.Services.ViewModel.User;
 using Palladin.Services.ViewModel.Vulnerability;
@@ -16,7 +17,13 @@ namespace Palladin.Services.LogicService
         {
             CreateMap<LoginPasswordViewModel, UserEntity>();
             CreateMap<UserEntity, LoginPasswordViewModel>();
+
             
+            CreateMap<CustomerViewModel, UserEntity>()
+                .ForMember(x => x.Login, y => y.MapFrom(z => z.CustomerName));
+            CreateMap<UserEntity, CustomerViewModel>()
+                .ForMember(x => x.CustomerName, y => y.MapFrom(z => z.Login));
+
             CreateMap<UserViewModel, UserEntity>()
                 .ForMember(x => x.Login, y => y.MapFrom(z => z.Name))
                 .ForMember(x => x.UserType, y => y.MapFrom(z => !string.IsNullOrWhiteSpace(z.Type)
@@ -66,7 +73,10 @@ namespace Palladin.Services.LogicService
             CreateMap<VulnerabilityEntity, VulnerabilitySimpleListViewModel>()
                 .ForMember(x => x.ProjectType, y => y.MapFrom(z => Enum.GetName(typeof(Enums.ProjType), z.ProjectType)))
                 .ForMember(x => x.RiskFactorType, y => y.MapFrom(z => Enum.GetName(typeof(Enums.RiskFactor), z.RiskFactor)));
-            
+
+            CreateMap<TypeAheadVulnerabilityViewModel, VulnerabilityEntity>();
+            CreateMap<VulnerabilityEntity, TypeAheadVulnerabilityViewModel>();
+
             #endregion
 
             #region Mapp for Projects
@@ -77,6 +87,10 @@ namespace Palladin.Services.LogicService
                                                                 : Enums.ProjType.Web));
             CreateMap<ProjectEntity, ProjectViewModel>()
                 .ForMember(x => x.ProjectType, y => y.MapFrom(z => Enum.GetName(typeof(Enums.ProjType), z.ProjectType)));
+
+            CreateMap<TypeAheadProjectViewModel, ProjectEntity>();
+            CreateMap<ProjectEntity, TypeAheadProjectViewModel>();
+
             #endregion
         }
     }

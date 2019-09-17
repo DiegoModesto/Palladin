@@ -23,5 +23,7 @@ namespace Palladin.Data.Repository.Interfaces
         void Remove(Guid id);
         void Remove(TEntity entity);
         void RemoveRange(IEnumerable<TEntity> entities);
+
+        bool Any(Expression<Func<TEntity, bool>> filter);
     }
 }
