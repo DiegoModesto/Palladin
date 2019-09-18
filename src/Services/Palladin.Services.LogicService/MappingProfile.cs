@@ -1,13 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore.Internal;
-using Palladin.Data.Entity;
-using Palladin.Services.LogicService.AuthenticationLogic;
-using Palladin.Services.ViewModel.Project;
-using Palladin.Services.ViewModel.User;
-using Palladin.Services.ViewModel.Vulnerability;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Palladin.Services.LogicService
 {
@@ -15,7 +6,7 @@ namespace Palladin.Services.LogicService
     {
         public MappingProfile()
         {
-            CreateMap<LoginPasswordViewModel, UserEntity>();
+            /*CreateMap<LoginPasswordViewModel, UserEntity>();
             CreateMap<UserEntity, LoginPasswordViewModel>();
 
             
@@ -91,7 +82,7 @@ namespace Palladin.Services.LogicService
             CreateMap<TypeAheadProjectViewModel, ProjectEntity>();
             CreateMap<ProjectEntity, TypeAheadProjectViewModel>();
 
-            #endregion
+            #endregion*/
         }
     }
 }

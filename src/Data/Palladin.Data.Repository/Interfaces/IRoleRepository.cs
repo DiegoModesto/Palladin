@@ -2,7 +2,7 @@
 
 namespace Palladin.Data.Repository.Interfaces
 {
-    public interface IMenuItemRepository : IRepository<MenuItemEntity>
+    public interface IRoleRepository : IRepository<RoleEntity>
     {
     }
 }

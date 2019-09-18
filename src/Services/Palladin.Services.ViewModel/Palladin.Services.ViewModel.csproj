@@ -4,4 +4,20 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Project\**" />
+    <Compile Remove="User\**" />
+    <Compile Remove="Vulnerability\**" />
+    <EmbeddedResource Remove="Project\**" />
+    <EmbeddedResource Remove="User\**" />
+    <EmbeddedResource Remove="Vulnerability\**" />
+    <None Remove="Project\**" />
+    <None Remove="User\**" />
+    <None Remove="Vulnerability\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="ResultResponseViewModel.cs" />
+  </ItemGroup>
+
 </Project>

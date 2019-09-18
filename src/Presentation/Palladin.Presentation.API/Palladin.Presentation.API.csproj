@@ -9,6 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\CustomerController.cs" />
+    <Compile Remove="Controllers\ProjectController.cs" />
+    <Compile Remove="Controllers\UserController.cs" />
+    <Compile Remove="Controllers\ValuesController.cs" />
+    <Compile Remove="Controllers\VulnerabilityController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AUtoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
@@ -17,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Services\Palladin.Services.ApiContract\Palladin.Services.ApiContract.csproj" />
     <ProjectReference Include="..\..\Services\Palladin.Services.LogicService\Palladin.Services.LogicService.csproj" />
     <ProjectReference Include="..\..\Services\Palladin.Services.ViewModel\Palladin.Services.ViewModel.csproj" />
   </ItemGroup>

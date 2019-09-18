@@ -1,4 +1,4 @@
-﻿using Palladin.Services.LogicService.Interfaces;
+﻿using Palladin.Services.LogicService.Contracts;
 
 namespace Palladin.Services.LogicService
 {

@@ -5,15 +5,15 @@ using System;
 
 namespace Palladin.Data.Repository.PublicRepository
 {
-    internal class MenuRepository : Repository<MenuEntity>, IMenuRepository, IDisposable
+    public class UserRoleRepository : Repository<UserRoleEntity>, IUserRoleRepository, IDisposable
     {
         public PalladinContext Context
         {
             get { return _context as PalladinContext; }
         }
 
-        public MenuRepository() : base(null) { }
-        public MenuRepository(PalladinContext ctx) : base(ctx)
+        public UserRoleRepository() : base(null) { }
+        public UserRoleRepository(PalladinContext ctx) : base(ctx)
         {
         }
 

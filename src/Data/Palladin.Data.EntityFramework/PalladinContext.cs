@@ -13,91 +13,49 @@ namespace Palladin.Data.EntityFramework
         #region Entities
         public DbSet<MediaEntity> Medias { get; set; }
         public DbSet<MediaPVEntity> MediaProjectVultis { get; set; }
+        public DbSet<MenuEntity> Menus { get; set; }
         public DbSet<MethodProtocolEntity> MethodProtocols { get; set; }
         public DbSet<ProjectEntity> Projects { get; set; }
         public DbSet<ProjectVulnerabilityEntity> ProjectsVulnerability { get; set; }
+        public DbSet<RefreshTokenEntity> RefreshTokens { get; set; }
+        public DbSet<RoleEntity> Roles { get; set; }
         public DbSet<UserEntity> Users { get; set; }
+        public DbSet<UserMenuEntity> UsersMenu { get; set; }
+        public DbSet<UserRoleEntity> UsersRoles { get; set; }
         public DbSet<VulnerabilityEntity> Vulnerabilities { get; set; }
         public DbSet<VulnerabilityLangEntity> VulnerabilityLangs { get; set; }
         //Configurações de MENU
-        public DbSet<MenuEntity> Menus { get; set; }
-        public DbSet<MenuItemEntity> MenusItem { get; set; }
+
         public DbSet<UserMenuEntity> UserMenus { get; set; }
 
         //Tabela que gerencia os tokens
-        public DbSet<TokenEntity> Tokens { get; set; }
+        public DbSet<RefreshTokenEntity> Tokens { get; set; }
         #endregion
 
         #region Override's Methods
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region [Configuration]
-            modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
-            modelBuilder.Entity<UserEntity>().HasIndex(x => x.Login).IsUnique();
-
             modelBuilder.ApplyConfiguration(new MediaEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new MenuEntityConfiguration());
             modelBuilder.ApplyConfiguration(new MethodProtocolEntityConfiguration());
             modelBuilder.ApplyConfiguration(new ProjectEntityConfiguration());
             modelBuilder.ApplyConfiguration(new ProjectVulnerabilityEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new RefreshTokenEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new UserEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new UserRoleEntityConfiguration());
             modelBuilder.ApplyConfiguration(new VulnerabilityEntityConfiguration());
             modelBuilder.ApplyConfiguration(new VulnerabilityLangEntityConfiguration());
 
-            modelBuilder.ApplyConfiguration(new TokenEntityConfiguration());
-            #endregion
-
-            #region [Relationship]
-            //ProjectEntity
-            modelBuilder.Entity<ProjectEntity>().Ignore(x => x.User);
-            modelBuilder.Entity<ProjectEntity>().Ignore(x => x.Customer);
-            //modelBuilder.Entity<ProjectEntity>()
-            //    .HasOne<UserEntity>(project => project.User)
-            //    .WithOne(user => user.Project)
-            //    .HasForeignKey<ProjectEntity>(x => x.UserId);
-
-            //modelBuilder.Entity<ProjectEntity>()
-            //    .HasOne<UserEntity>(project => project.Customer)
-            //    .WithOne(user => user.Project)
-            //    .HasForeignKey<ProjectEntity>(x => x.CustomerId);
-
-            //ProjectVulnerabilityEntity
-            modelBuilder.Entity<ProjectVulnerabilityEntity>()
-                .HasOne<MethodProtocolEntity>(pv => pv.MethodProtocol)
-                .WithOne(mp => mp.ProjectVulnerability)
-                .HasForeignKey<ProjectVulnerabilityEntity>(x => x.MethodProtocolId)
-                .OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<ProjectVulnerabilityEntity>()
-                .HasOne<ProjectEntity>(pv => pv.Project)
-                .WithOne(mp => mp.ProjectVulnerability)
-                .HasForeignKey<ProjectVulnerabilityEntity>(x => x.ProjectId)
-                .OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<ProjectVulnerabilityEntity>()
-                .HasOne<VulnerabilityEntity>(pv => pv.Vulnerability)
-                .WithOne(mp => mp.ProjectVulnerability)
-                .HasForeignKey<ProjectVulnerabilityEntity>(x => x.VulnerabilityId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            //VulnerabilityLangEntity
-            modelBuilder.Entity<VulnerabilityLangEntity>()
-                .HasOne(vult => vult.Vulnerability)
-                .WithMany(lang => lang.Vulnerabilities)
-                .HasForeignKey(x => x.VulnerabilityId);
-
-            //MediaPVEntity
-            modelBuilder.Entity<MediaPVEntity>().HasKey(x => new { x.MediaId, x.ProjectVulnerabilityId });
-            modelBuilder.Entity<MediaPVEntity>()
-                .HasOne<MediaEntity>(a => a.Media)
-                .WithMany(b => b.MediaPVEntities)
-                .HasForeignKey(c => c.MediaId);
-            modelBuilder.Entity<MediaPVEntity>()
-                .HasOne<ProjectVulnerabilityEntity>(a => a.ProjectVulnerability)
-                .WithMany(b => b.MediaPVEntities)
-                .HasForeignKey(c => c.ProjectVulnerabilityId);
-
-            //MenuEntity
-            modelBuilder.Entity<UserMenuEntity>().HasKey(x => new { x.MenuId, x.UserId });
-            //modelBuilder.Entity<UserMenuEntity>()
-            //    .HasOne<UserEntity>(a => a.User)
-
+            modelBuilder
+                .Entity<MediaPVEntity>()
+                .HasKey(x => new { x.MediaId, x.ProjectVulnerabilityId })
+                .HasName("FK_Media_PV");
+            modelBuilder
+                .Entity<UserMenuEntity>()
+                .HasKey(x => new { x.MenuId, x.UserId })
+                .HasName("FK_Menu_User");
             #endregion
 
             #region [Seed data]
@@ -108,8 +66,10 @@ namespace Palladin.Data.EntityFramework
                 new UserEntity
                 {
                     Id = clientUser,
-                    Login = "cliente",
+                    Login = DateTime.UtcNow.ToString("yyyyMMddHHmm"),
                     Password = @"5ivWjl+ZjGohSxB1pb/U+w==",
+                    UserName = "Diego Sanches",
+                    Email = "diego@cliente.com",
                     CreatedDate = DateTime.Now.AddDays(-90),
                     UserType = Enums.UserType.Client,
                     IsDeleted = false
@@ -117,9 +77,11 @@ namespace Palladin.Data.EntityFramework
                 new UserEntity
                 {
                     Id = esecUser,
-                    Login = "esec",
-                    Password = @"TKrBGmPmSUdIcUBSa1x0+g==",
-                    CreatedDate = DateTime.Now.AddDays(-93),
+                    Login = DateTime.UtcNow.ToString("yyyyMMddHHmm"),
+                    Password = @"5ivWjl+ZjGohSxB1pb/U+w==",
+                    UserName = "Administrador [eSecurity]",
+                    Email = "adm@esecurity.com",
+                    CreatedDate = DateTime.Now.AddDays(-90),
                     UserType = Enums.UserType.eSecurity,
                     IsDeleted = false
                 }
@@ -128,63 +90,65 @@ namespace Palladin.Data.EntityFramework
             //Menu
             var menuId1 = Guid.NewGuid();
             var menuId2 = Guid.NewGuid();
+            var menuId3 = Guid.NewGuid();
             modelBuilder.Entity<MenuEntity>().HasData(
                 new MenuEntity
                 {
                     Id = menuId1,
-                    Name = Enum.GetName(typeof(Enums.UserType), Enums.UserType.Client)
+                    Name = Enum.GetName(typeof(Enums.UserType), Enums.UserType.Client),
+                    Order = 0,
+                    Path = "/projects"
                 },
                 new MenuEntity
                 {
+                    Id = Guid.NewGuid(),
+                    Name = Enum.GetName(typeof(Enums.UserType), Enums.UserType.Client),
+                    Order = 0,
+                    Path = "/projects/view-details",
+                    ParentId = menuId1
+                },
+
+                new MenuEntity
+                {
                     Id = menuId2,
-                    Name = Enum.GetName(typeof(Enums.UserType), Enums.UserType.eSecurity)
+                    Name = Enum.GetName(typeof(Enums.UserType), Enums.UserType.eSecurity),
+                    Order = 0,
+                    Path = "/projects"
+                },
+                new MenuEntity
+                {
+                    Id = Guid.NewGuid(),
+                    Name = Enum.GetName(typeof(Enums.UserType), Enums.UserType.eSecurity),
+                    Order = 0,
+                    Path = "/projects/create",
+                    ParentId = menuId2
+                },
+                new MenuEntity
+                {
+                    Id = Guid.NewGuid(),
+                    Name = Enum.GetName(typeof(Enums.UserType), Enums.UserType.eSecurity),
+                    Order = 1,
+                    Path = "/projects/join",
+                    ParentId = menuId2
+                },
+
+                new MenuEntity
+                {
+                    Id = menuId3,
+                    Name = Enum.GetName(typeof(Enums.UserType), Enums.UserType.eSecurity),
+                    Order = 1,
+                    Path = "/vulnerabilities"
+                },
+                new MenuEntity
+                {
+                    Id = Guid.NewGuid(),
+                    Name = Enum.GetName(typeof(Enums.UserType), Enums.UserType.eSecurity),
+                    Order = 0,
+                    Path = "/vulnerabilities/create",
+                    ParentId = menuId3
                 }
             );
 
-            modelBuilder.Entity<MenuItemEntity>().HasData(
-                new MenuItemEntity
-                {
-                    Id = Guid.NewGuid(),
-                    MenuId = menuId1,
-                    Name = "Projetos",
-                    Path = "/project",
-                    Order = 0
-                },
-                new MenuItemEntity
-                {
-                    Id = Guid.NewGuid(),
-                    MenuId = menuId2,
-                    Name = "Projetos",
-                    Path = "/admin/project",
-                    Order = 0
-                },
-                new MenuItemEntity
-                {
-                    Id = Guid.NewGuid(),
-                    MenuId = menuId1,
-                    Name = "Comparar Projetos",
-                    Path = "/compare",
-                    Order = 1
-                },
-                new MenuItemEntity
-                {
-                    Id = Guid.NewGuid(),
-                    MenuId = menuId2,
-                    Name = "Vulnerabilidades",
-                    Path = "/admin/vulnerability",
-                    Order = 1
-                },
-                new MenuItemEntity
-                {
-                    Id = Guid.NewGuid(),
-                    MenuId = menuId2,
-                    Name = "Vinculação",
-                    Path = "/admin/join-project",
-                    Order = 2
-                }
-            );
-
-            var userMenuId = Guid.NewGuid();
             modelBuilder.Entity<UserMenuEntity>().HasData(
                 new UserMenuEntity
                 {
@@ -195,23 +159,42 @@ namespace Palladin.Data.EntityFramework
                 {
                     MenuId = menuId2,
                     UserId = esecUser
+                },
+                new UserMenuEntity
+                {
+                    MenuId = menuId3,
+                    UserId = esecUser
                 }
             );
 
             //Vulnerability
-            var vulnerabilityId = Guid.NewGuid();
+            var vulnerabilityId01 = Guid.NewGuid();
+            var vulnerabilityId02 = Guid.NewGuid();
             modelBuilder.Entity<VulnerabilityEntity>().HasData(
                 new VulnerabilityEntity
                 {
-                    Id = vulnerabilityId,
+                    Id = vulnerabilityId01,
                     CreatedDate = DateTime.Now,
                     CVSS = "AV:N/AV:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
                     IsDeleted = false,
                     Name = "Weak Password Policy",
                     ProjectType = Enums.ProjType.Web,
-                    References = "http://www.owasp.org/index.php/Testing_for_Weak_password_policy",
+                    References = @"http://www.owasp.org/index.php/Testing_for_Weak_password_policy",
                     RiskFactor = Enums.RiskFactor.Critical,
                     Tags = "password,weak-password,weak-password-policy,password-policy",
+                    UserId = esecUser,
+                },
+                new VulnerabilityEntity
+                {
+                    Id = vulnerabilityId02,
+                    CreatedDate = DateTime.Now,
+                    CVSS = "AV:N/AV:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+                    IsDeleted = false,
+                    Name = "Buffer overflow",
+                    ProjectType = Enums.ProjType.Web,
+                    References = @"http://www.owasp.org/index.php/buffer_overflow_field",
+                    RiskFactor = Enums.RiskFactor.Critical,
+                    Tags = "field-validation,field-weak",
                     UserId = esecUser,
                 }
             );
@@ -222,42 +205,211 @@ namespace Palladin.Data.EntityFramework
                     Id = Guid.NewGuid(),
                     CreatedDate = DateTime.Now,
                     IsDeleted = false,
+                    LanguageType = Enums.LangType.US,
+                    VulnerabilityId = vulnerabilityId01,
+                    Description = @"The application does not require users to have strong passwords. The lack of password complexity significantly reduces search space by trying to guess user passwords, facilitating brute force attacks.
+                    Thus,
+                    it was possible to gain access to the system using a user account that has weak password and easy guessing. From the accessed account,
+                    A new account has been created.",
+                    Remediation = @"Enter a strong password policy (which ensures password length, complexity, reuse and aging) and / or
+                    additional authentication controls (double factor authentication)."
+                },
+                new VulnerabilityLangEntity
+                {
+                    Id = Guid.NewGuid(),
+                    CreatedDate = DateTime.Now,
+                    IsDeleted = false,
                     LanguageType = Enums.LangType.BR,
-                    VulnerabilityId = vulnerabilityId,
+                    VulnerabilityId = vulnerabilityId01,
                     Description = @"A aplicação não exige que os usuários tenham senhas fortes. A falta de complexidade de senha reduz significamente o espaço de busca ao tentar adivinhar as senhas dos usuários, facilitando ataques de força bruta.
                     Dessa forma,
                     foi possível obter acesso ao sistema utilizando uma conta de usuário que possui senha fraca e de fácil adivinhação.A partir da conta acessada,
                     uma nova conta foi criada.",
                     Remediation = @"Introduza uma política de senha forte (que garanta o tamanho, a complexidade, a reutilização e o envelhecimento da senha) e/ou
                     controles de autenticação adicionais (duplo fator de autenticação)."
+                },
+                new VulnerabilityLangEntity
+                {
+                    Id = Guid.NewGuid(),
+                    CreatedDate = DateTime.Now,
+                    IsDeleted = false,
+                    LanguageType = Enums.LangType.ES,
+                    VulnerabilityId = vulnerabilityId01,
+                    Description = @"La aplicación no requiere que los usuarios tengan contraseñas seguras. La falta de complejidad de la contraseña reduce significativamente el espacio de búsqueda al tratar de adivinar las contraseñas de los usuarios, lo que facilita los ataques de fuerza bruta.
+                    De esa forma,
+                    fue posible obtener acceso al sistema utilizando una cuenta de usuario que tiene una contraseña débil y fácil de adivinar.
+                    Se ha creado una nueva cuenta.",
+                    Remediation = @"Ingrese una política de contraseña segura (que asegure la longitud, complejidad, reutilización y antigüedad de la contraseña) y / o
+                    controles de autenticación adicionales (autenticación de doble factor)."
                 }
             );
 
             //Method Protocol
+            var methodPost = Guid.NewGuid();
             modelBuilder.Entity<MethodProtocolEntity>().HasData(
                 new MethodProtocolEntity
                 {
                     Id = Guid.NewGuid(),
                     IsDeleted = false,
-                    Name = "GET"
+                    Name = "GET",
+                    ProjectType = Enums.ProjType.Web
+                },
+                new MethodProtocolEntity
+                {
+                    Id = methodPost,
+                    IsDeleted = false,
+                    Name = "POST",
+                    ProjectType = Enums.ProjType.Web
                 },
                 new MethodProtocolEntity
                 {
                     Id = Guid.NewGuid(),
                     IsDeleted = false,
-                    Name = "POST"
+                    Name = "PUT",
+                    ProjectType = Enums.ProjType.Web
                 },
                 new MethodProtocolEntity
                 {
                     Id = Guid.NewGuid(),
                     IsDeleted = false,
-                    Name = "PUT"
+                    Name = "DELETE",
+                    ProjectType = Enums.ProjType.Web
+                },
+
+                new MethodProtocolEntity
+                {
+                    Id = Guid.NewGuid(),
+                    IsDeleted = false,
+                    Name = "IP",
+                    ProjectType = Enums.ProjType.Rede
                 },
                 new MethodProtocolEntity
                 {
                     Id = Guid.NewGuid(),
                     IsDeleted = false,
-                    Name = "DELETE"
+                    Name = "FTP",
+                    ProjectType = Enums.ProjType.Rede
+                },
+                new MethodProtocolEntity
+                {
+                    Id = Guid.NewGuid(),
+                    IsDeleted = false,
+                    Name = "SSH",
+                    ProjectType = Enums.ProjType.Rede
+                },
+                new MethodProtocolEntity
+                {
+                    Id = Guid.NewGuid(),
+                    IsDeleted = false,
+                    Name = "SSL",
+                    ProjectType = Enums.ProjType.Rede
+                },
+                new MethodProtocolEntity
+                {
+                    Id = Guid.NewGuid(),
+                    IsDeleted = false,
+                    Name = "TELNET",
+                    ProjectType = Enums.ProjType.Rede
+                },
+                new MethodProtocolEntity
+                {
+                    Id = Guid.NewGuid(),
+                    IsDeleted = false,
+                    Name = "SMTP",
+                    ProjectType = Enums.ProjType.Rede
+                },
+                new MethodProtocolEntity
+                {
+                    Id = Guid.NewGuid(),
+                    IsDeleted = false,
+                    Name = "POP3",
+                    ProjectType = Enums.ProjType.Rede
+                },
+                new MethodProtocolEntity
+                {
+                    Id = Guid.NewGuid(),
+                    IsDeleted = false,
+                    Name = "IMAP4",
+                    ProjectType = Enums.ProjType.Rede
+                },
+                new MethodProtocolEntity
+                {
+                    Id = Guid.NewGuid(),
+                    IsDeleted = false,
+                    Name = "HTTP",
+                    ProjectType = Enums.ProjType.Rede
+                },
+                new MethodProtocolEntity
+                {
+                    Id = Guid.NewGuid(),
+                    IsDeleted = false,
+                    Name = "HTTPS",
+                    ProjectType = Enums.ProjType.Rede
+                },
+                new MethodProtocolEntity
+                {
+                    Id = Guid.NewGuid(),
+                    IsDeleted = false,
+                    Name = "SIP",
+                    ProjectType = Enums.ProjType.Rede
+                }
+            );
+
+            //Project
+            var projectId = Guid.NewGuid();
+            modelBuilder.Entity<ProjectEntity>().HasData(
+                new ProjectEntity
+                {
+                    Id = projectId,
+                    CustomerId = clientUser,
+                    UserId = esecUser,
+                    InitialDate = DateTime.UtcNow.AddDays(60),
+                    EndDate = DateTime.UtcNow.AddDays(67),
+                    Name = @"Projeto 01 [Web]: <br />Domínio: http://www.siteinseguro.com.br/",
+                    ProjectType = Enums.ProjType.Web,
+                    Subsidiary = "Subsidiária"
+                }
+            );
+
+            modelBuilder.Entity<ProjectVulnerabilityEntity>().HasData(
+                new ProjectVulnerabilityEntity
+                {
+                    Id = Guid.NewGuid(),
+                    CreatedDate = DateTime.UtcNow.AddDays(50),
+                    Environment = "register.php",
+                    Port = "80",
+                    FiledOrCookieName = "password",
+                    ProjectId = projectId,
+                    UserId = esecUser,
+                    MethodProtocolId = methodPost,
+                    VulnerabilityId = vulnerabilityId01,
+                    Status = Enums.ProjStatus.New
+                },
+                new ProjectVulnerabilityEntity
+                {
+                    Id = Guid.NewGuid(),
+                    CreatedDate = DateTime.UtcNow.AddDays(50),
+                    Environment = "register.php",
+                    Port = "80",
+                    FiledOrCookieName = "retype-password",
+                    ProjectId = projectId,
+                    UserId = esecUser,
+                    MethodProtocolId = methodPost,
+                    VulnerabilityId = vulnerabilityId01,
+                    Status = Enums.ProjStatus.New
+                },
+                new ProjectVulnerabilityEntity
+                {
+                    Id = Guid.NewGuid(),
+                    CreatedDate = DateTime.UtcNow.AddDays(50),
+                    Environment = "contato.php",
+                    Port = "80",
+                    FiledOrCookieName = "name",
+                    ProjectId = projectId,
+                    UserId = esecUser,
+                    MethodProtocolId = methodPost,
+                    VulnerabilityId = vulnerabilityId02,
+                    Status = Enums.ProjStatus.New
                 }
             );
             #endregion
@@ -269,14 +421,14 @@ namespace Palladin.Data.EntityFramework
             this.Audit();
             return base.SaveChanges();
         }
-        #endregion
-
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
         {
             this.Audit();
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
+        #endregion
 
+        #region Private Method's
         /// <summary>
         /// Private audit to SaveChanges in DataBase
         /// </summary>
@@ -290,7 +442,7 @@ namespace Palladin.Data.EntityFramework
                     ((BaseEntity)entry.Entity).CreatedDate = DateTime.UtcNow;
                     ((BaseEntity)entry.Entity).IsDeleted = false;
                 }
-                if(entry.State == EntityState.Deleted)
+                if (entry.State == EntityState.Deleted)
                 {
                     ((BaseEntity)entry.Entity).IsDeleted = true;
                     entry.State = EntityState.Modified;
@@ -302,18 +454,14 @@ namespace Palladin.Data.EntityFramework
         {
             optionsBuilder.UseSqlServer(DBGlobals.DbConnection);
         }
-        public PalladinContext()
-        {
-            base.OnConfiguring(new DbContextOptionsBuilder<PalladinContext>()
-                .UseSqlServer(DBGlobals.DbConnection));
-        }
+        #endregion
 
+        public PalladinContext() : this(DBGlobals.DbConnection) { }
         public PalladinContext(string connectionString)
         {
+            connectionString = connectionString ?? DBGlobals.DbConnection;
             base.OnConfiguring(new DbContextOptionsBuilder<PalladinContext>()
                 .UseSqlServer(connectionString));
         }
-
-        public PalladinContext(DbContextOptions options) : base(options) { }
     }
 }

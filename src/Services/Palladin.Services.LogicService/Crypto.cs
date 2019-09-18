@@ -8,8 +8,6 @@ namespace Palladin.Services.LogicService
 {
     internal static class Crypto
     {
-        private const int Keysize = 256;
-        private const int DerivationIterations = 1000;
         /// <summary>
         /// eSecurity - Serviços e Treinamentos em Segurança Cibernética (Pentest)
         /// </summary>

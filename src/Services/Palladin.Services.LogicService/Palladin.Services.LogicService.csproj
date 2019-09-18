@@ -5,6 +5,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="AuthenticationLogic\**" />
+    <Compile Remove="Interfaces\**" />
+    <Compile Remove="MenusLogic\**" />
+    <Compile Remove="ProjectLogic\**" />
+    <Compile Remove="VulnerabilityLogic\**" />
+    <EmbeddedResource Remove="AuthenticationLogic\**" />
+    <EmbeddedResource Remove="Interfaces\**" />
+    <EmbeddedResource Remove="MenusLogic\**" />
+    <EmbeddedResource Remove="ProjectLogic\**" />
+    <EmbeddedResource Remove="VulnerabilityLogic\**" />
+    <None Remove="AuthenticationLogic\**" />
+    <None Remove="Interfaces\**" />
+    <None Remove="MenusLogic\**" />
+    <None Remove="ProjectLogic\**" />
+    <None Remove="VulnerabilityLogic\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
   </ItemGroup>
 
@@ -13,6 +31,10 @@
     <ProjectReference Include="..\..\Data\Palladin.Data.Entity\Palladin.Data.Entity.csproj" />
     <ProjectReference Include="..\..\Data\Palladin.Data.Repository\Palladin.Data.Repository.csproj" />
     <ProjectReference Include="..\Palladin.Services.ViewModel\Palladin.Services.ViewModel.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

@@ -22,7 +22,7 @@ namespace Palladin.Services.LogicService.AuthenticationLogic
             {
                 viewModel.Password = Crypto.Encrypt(viewModel.Password);
                 var user = this._mapp.Map<LoginPasswordViewModel, UserEntity>(viewModel);
-                user = uow._userR.IsUserAuthenticated(user);
+                //user = uow._userR.IsUserAuthenticated(user);
 
                 if (user != null)
                     return this._mapp.Map<UserEntity, UserViewModel>(user);
@@ -35,8 +35,8 @@ namespace Palladin.Services.LogicService.AuthenticationLogic
         {
             using(var uow = new UnitOfWork(ConnectionString))
             {
-                return _mapp.Map<IEnumerable<UserEntity>, IEnumerable<CustomerViewModel>>(uow._userR.GetAll()
-                    .Where(x => x.UserType.Equals(Enums.UserType.Client)));
+                return _mapp.Map<IEnumerable<UserEntity>, IEnumerable<CustomerViewModel>>(uow._userR.GetAll());
+                    //.Where(x => x.UserType.Equals(Enums.UserType.Client)));
             }
         }
 
@@ -51,7 +51,7 @@ namespace Palladin.Services.LogicService.AuthenticationLogic
             {
                 var user = uow._userR.GetById(viewModel.Id);
                 if (user != null)
-                    return user.UserType.ToString();
+                    return string.Empty;// user.UserType.ToString();
 
                 throw new Exception("Usuário não existente.");
             }
@@ -61,7 +61,7 @@ namespace Palladin.Services.LogicService.AuthenticationLogic
         {
             using (var uow = new UnitOfWork(ConnectionString))
             {
-                var token = uow._tokenR.GetById(id);
+                var token = uow._refreshTokenR.GetById(id);
                 if (token != null)
                     return token.Token;
 
@@ -73,8 +73,8 @@ namespace Palladin.Services.LogicService.AuthenticationLogic
         {
             using (var uow = new UnitOfWork(ConnectionString))
             {
-                var user = uow._userR.SingleOrDefault(x => x.Login.Equals(name));
-                var token = uow._tokenR.FirstNotDeleted(user.Id);
+                var user = uow._userR.SingleOrDefault(x => x.UserName.Equals(name));
+                var token = uow._refreshTokenR.FirstNotDeleted(user.Id);
                 if (token != null)
                     return token.Token;
 
@@ -86,7 +86,7 @@ namespace Palladin.Services.LogicService.AuthenticationLogic
         {
             using (var uow = new UnitOfWork(ConnectionString))
             {
-                uow._tokenR.Remove(token);
+                uow._refreshTokenR.Remove(token);
                 uow.Complete();
             }
         }
@@ -95,8 +95,8 @@ namespace Palladin.Services.LogicService.AuthenticationLogic
         {
             using (var uow = new UnitOfWork(ConnectionString))
             {
-                uow._tokenR.RemoveAllFromUserId(userId);
-                uow._tokenR.Add(userId, token);
+                uow._refreshTokenR.RemoveAllFromUserId(userId);
+                uow._refreshTokenR.Add(userId, token);
                 uow.Complete();
             }
         }
@@ -105,8 +105,8 @@ namespace Palladin.Services.LogicService.AuthenticationLogic
         {
             using (var uow = new UnitOfWork(ConnectionString))
             {
-                var uss = uow._userR.SingleOrDefault(x => x.Login.Equals(user));
-                uow._tokenR.Add(uss.Id, token);
+                var uss = uow._userR.SingleOrDefault(x => x.UserName.Equals(user));
+                uow._refreshTokenR.Add(uss.Id, token);
                 uow.Complete();
             }
         }

@@ -20,6 +20,31 @@ namespace Palladin.Data.EntityFramework.Configuration
             
             builder.Property(x => x.CreatedDate).HasColumnType("datetime2").IsRequired();
             builder.Property(x => x.IsDeleted).IsRequired();
+
+            builder.Ignore(x => x.UserId);
+            builder.Ignore(x => x.CustomerId);
+
+            //builder
+            //    .HasOne(x => x.User)
+            //    .WithOne(x => x.Project)
+            //    .HasForeignKey<ProjectEntity>(x => x.UserId)
+            //    .OnDelete(DeleteBehavior.Cascade);
+
+            //builder
+            //    .HasIndex(x => x.UserId)
+            //    .IsUnique(false);
+
+
+            //builder
+            //    .HasOne(x => x.Customer)
+            //    .WithOne(x => x.Project)
+            //    .HasForeignKey<ProjectEntity>(x => x.CustomerId)
+            //    .IsRequired(false)
+            //    .OnDelete(DeleteBehavior.SetNull);
+
+            //builder
+            //    .HasIndex(x => x.CustomerId)
+            //    .IsUnique(false);
         }
     }
 }

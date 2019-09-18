@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Palladin.Services.LogicServ
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Palladin.Services.ViewModel", "src\Services\Palladin.Services.ViewModel\Palladin.Services.ViewModel.csproj", "{066BA7E7-B3EF-4A72-9F04-5A76E9BA2CEA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Palladin.Data.EntityFramework.Startup", "src\Data\Palladin.Data.EntityFramework.Startup\Palladin.Data.EntityFramework.Startup.csproj", "{BA04B81A-0B53-4EFA-8290-BC7CB5F434E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Palladin.Services.ApiContract", "src\Services\Palladin.Services.ApiContract\Palladin.Services.ApiContract.csproj", "{32942E25-269F-485E-99B6-917D8E9CCB72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,10 +53,10 @@ Global
 		{066BA7E7-B3EF-4A72-9F04-5A76E9BA2CEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{066BA7E7-B3EF-4A72-9F04-5A76E9BA2CEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{066BA7E7-B3EF-4A72-9F04-5A76E9BA2CEA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BA04B81A-0B53-4EFA-8290-BC7CB5F434E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BA04B81A-0B53-4EFA-8290-BC7CB5F434E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BA04B81A-0B53-4EFA-8290-BC7CB5F434E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BA04B81A-0B53-4EFA-8290-BC7CB5F434E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32942E25-269F-485E-99B6-917D8E9CCB72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32942E25-269F-485E-99B6-917D8E9CCB72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32942E25-269F-485E-99B6-917D8E9CCB72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32942E25-269F-485E-99B6-917D8E9CCB72}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -68,7 +68,7 @@ Global
 		{983AEFFF-0294-4252-8902-67EB02F5C113} = {B9CDCE64-7EAD-4E2C-943C-66C6CF2E0888}
 		{841C608B-6654-43D5-B467-B5F7DBF70B39} = {A44811FA-638D-4F59-A102-8311E57EF9B2}
 		{066BA7E7-B3EF-4A72-9F04-5A76E9BA2CEA} = {A44811FA-638D-4F59-A102-8311E57EF9B2}
-		{BA04B81A-0B53-4EFA-8290-BC7CB5F434E4} = {DE0833FD-E97B-4546-9684-1A42C0A4847C}
+		{32942E25-269F-485E-99B6-917D8E9CCB72} = {A44811FA-638D-4F59-A102-8311E57EF9B2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1E210980-7890-41AA-BBE4-1B154E2D1E60}

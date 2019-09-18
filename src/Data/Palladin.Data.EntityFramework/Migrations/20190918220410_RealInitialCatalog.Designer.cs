@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Palladin.Data.EntityFramework;
 
 namespace Palladin.Data.EntityFramework.Migrations
 {
     [DbContext(typeof(PalladinContext))]
-    partial class PalladinContextModelSnapshot : ModelSnapshot
+    [Migration("20190918220410_RealInitialCatalog")]
+    partial class RealInitialCatalog
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

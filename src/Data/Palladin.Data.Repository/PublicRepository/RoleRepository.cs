@@ -2,19 +2,20 @@
 using Palladin.Data.EntityFramework;
 using Palladin.Data.Repository.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Palladin.Data.Repository.PublicRepository
 {
-    internal class MenuItemRepository : Repository<MenuItemEntity>, IMenuItemRepository, IDisposable
+    public class RoleRepository : Repository<RoleEntity>, IRoleRepository, IDisposable
     {
         public PalladinContext Context
         {
             get { return _context as PalladinContext; }
         }
 
-        public MenuItemRepository() : base(null) { }
-        public MenuItemRepository(PalladinContext ctx) : base(ctx) { }
-
+        public RoleRepository() : base(null) { }
+        public RoleRepository(PalladinContext ctx) : base(ctx) { }
 
         public void Dispose()
         {

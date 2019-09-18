@@ -11,6 +11,8 @@ namespace Palladin.Data.EntityFramework.Configuration
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Name).HasColumnType("varchar(20)").IsRequired();
+            builder.Property(x => x.Order).HasColumnType("smallint").IsRequired();
+            builder.Property(x => x.Path).HasColumnType("varchar(50)").IsRequired();
         }
     }
 }

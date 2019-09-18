@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Palladin.Data.Entity
 {
@@ -7,9 +8,13 @@ namespace Palladin.Data.Entity
         public Guid Id { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
+        public string UserName { get; set; }
+        public string Email { get; set; }
         public Enums.UserType UserType { get; set; }
 
         public ProjectEntity Project { get; set; }
         public MenuEntity Menu { get; set; }
+
+        public virtual ICollection<UserRoleEntity> Roles { get; set; }
     }
 }

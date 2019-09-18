@@ -25,8 +25,6 @@ namespace Palladin.Services.LogicService.ProjectLogic
             using (var uow = new UnitOfWork(ConnectionString))
             {
                 model.Id = Guid.NewGuid();
-                model.UserName = uow._userR.GetNameById(model.UserId);
-                model.CustomerName = uow._userR.GetNameById(model.CustomerId);
 
                 var project = this._mapp.Map<ProjectViewModel, ProjectEntity>(model);
                 uow._projectR.Add(project);
@@ -42,8 +40,8 @@ namespace Palladin.Services.LogicService.ProjectLogic
             {
                 var project = uow._projectR.GetById(id);
                 var projectViewModel = _mapp.Map<ProjectEntity, ProjectViewModel>(project);
-                projectViewModel.UserName = project.User?.Login;
-                projectViewModel.CustomerName = project.Customer?.Login;
+                projectViewModel.UserName = project.User?.UserName;
+                projectViewModel.CustomerName = project.Customer?.UserName;
 
                 return projectViewModel;
             }
@@ -60,8 +58,8 @@ namespace Palladin.Services.LogicService.ProjectLogic
                     foreach (var item in projects)
                     {
                         var x = _mapp.Map<ProjectEntity, ProjectViewModel>(item);
-                        x.UserName = item.User?.Login;
-                        x.CustomerName = item.Customer?.Login;
+                        x.UserName = item.User?.UserName;
+                        x.CustomerName = item.Customer?.UserName;
                         ret.Add(x);
                     }
 

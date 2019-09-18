@@ -1,4 +1,4 @@
-﻿namespace Palladin.Services.LogicService.Interfaces
+﻿namespace Palladin.Services.LogicService.Contracts
 {
     public interface IBaseLogic
     {

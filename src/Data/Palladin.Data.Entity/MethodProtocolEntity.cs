@@ -7,7 +7,5 @@ namespace Palladin.Data.Entity
         public Guid Id { get; set; }
         public string Name { get; set; }
         public Enums.ProjType ProjectType { get; set; }
-
-        public ProjectVulnerabilityEntity ProjectVulnerability { get; set; }
     }
 }

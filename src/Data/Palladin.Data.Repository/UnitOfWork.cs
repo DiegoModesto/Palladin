@@ -1,6 +1,7 @@
 ﻿using Palladin.Data.EntityFramework;
 using Palladin.Data.Repository.Interfaces;
 using Palladin.Data.Repository.PublicRepository;
+using System.Threading.Tasks;
 
 namespace Palladin.Data.Repository
 {
@@ -8,89 +9,52 @@ namespace Palladin.Data.Repository
     {
         public readonly PalladinContext _ctx;
 
-        //public UnitOfWork()
-        //{
-        //    this._ctx = new PalladinContext();
-
-        //    #region Building repositories
-        //    this._menuItemR = new MenuItemRepository(this._ctx);
-        //    this._menuR = new MenuRepository(this._ctx);
-        //    this._userMenuR = new UserMenuRepository(this._ctx);
-        //    this._userR = new UserRepository(this._ctx);
-        //    this._vulnerabilityLangR = new VulnerabilityLangRepository(this._ctx);
-        //    this._vulnerabilityR = new VulnerabilityRepository(this._ctx);
-        //    this._projectR = new ProjectRepository(this._ctx);
-        //    #endregion
-        //}
-
         public UnitOfWork(string connectionString)
+            : this(ctx: new PalladinContext(connectionString))
         {
-            if (this._ctx == null)
-                this._ctx = new PalladinContext(connectionString);
-
-            #region Building repositories
-            this._menuItemR = new MenuItemRepository(this._ctx);
-            this._menuR = new MenuRepository(this._ctx);
-            this._userMenuR = new UserMenuRepository(this._ctx);
-            this._userR = new UserRepository(this._ctx);
-            this._vulnerabilityLangR = new VulnerabilityLangRepository(this._ctx);
-            this._vulnerabilityR = new VulnerabilityRepository(this._ctx);
-            this._projectR = new ProjectRepository(this._ctx);
-            this._projectVultR = new ProjectVulnerabilityRepository(this._ctx);
-            this._methodProtocolR = new MethodProtocolRepository(this._ctx);
-            this._mediaR = new MediaRepository(this._ctx);
-            this._mediaPvR = new MediaPVRepository(this._ctx);
-
-            this._tokenR = new TokenRepository(this._ctx);
-            #endregion
         }
-
         public UnitOfWork(PalladinContext ctx)
         {
             this._ctx = ctx;
-
             #region Building repositories
-            this._menuItemR = new MenuItemRepository();
-            this._menuR = new MenuRepository();
-            this._userMenuR = new UserMenuRepository();
-            this._userR = new UserRepository();
-            this._vulnerabilityLangR = new VulnerabilityLangRepository();
-            this._vulnerabilityR = new VulnerabilityRepository();
-            this._projectR = new ProjectRepository();
-            this._projectVultR = new ProjectVulnerabilityRepository();
-            this._methodProtocolR = new MethodProtocolRepository();
-            this._mediaR = new MediaRepository();
-            this._mediaPvR = new MediaPVRepository();
-
-            this._tokenR = new TokenRepository();
+            _mediaPvR = new MediaPVRepository(this._ctx);
+            _mediaR = new MediaRepository(this._ctx);
+            _menuR = new MenuRepository(this._ctx);
+            _methodR = new MethodProtocolRepository(this._ctx);
+            _projectR = new ProjectRepository(this._ctx);
+            _projectVultR = new ProjectVulnerabilityRepository(this._ctx);
+            _refreshTokenR = new RefreshTokenRepository(this._ctx);
+            _roleR = new RoleRepository(this._ctx);
+            _userMenuR = new UserMenuRepository(this._ctx);
+            _userR = new UserRepository(this._ctx);
+            _userRoleR = new UserRoleRepository(this._ctx);
+            _vultR = new VulnerabilityRepository(this._ctx);
+            _vultLangR = new VulnerabilityLangRepository(this._ctx);
             #endregion
         }
 
-        public IMenuItemRepository _menuItemR { get; private set; }
-
-        public IMenuRepository _menuR { get; private set; }
-
-        public IUserMenuRepository _userMenuR { get; private set; }
-
-        public IUserRepository _userR { get; private set; }
-
-        public IVulnerabilityLangRepository _vulnerabilityLangR { get; private set; }
-
-        public IVulnerabilityRepository _vulnerabilityR { get; private set; }
-
-        public IProjectRepository _projectR { get; private set; }
-
-        public IProjectVulnerabilityRepository _projectVultR { get; private set; }
-
-        public ITokenRepository _tokenR { get; private set; }
-
-        public IMethodProtocolRepository _methodProtocolR { get; private set; }
-        public IMediaRepository _mediaR { get; private set; }
         public IMediaPVRepository _mediaPvR { get; private set; }
+        public IMediaRepository _mediaR { get; private set; }
+        public IMenuRepository _menuR { get; private set; }
+        public IMethodProtocolRepository _methodR { get; private set; }
+        public IProjectRepository _projectR { get; private set; }
+        public IProjectVulnerabilityRepository _projectVultR { get; private set; }
+        public IRefreshTokenRepository _refreshTokenR { get; private set; }
+        public IRoleRepository _roleR { get; private set; }
+        public IUserMenuRepository _userMenuR { get; private set; }
+        public IUserRepository _userR { get; private set; }
+        public IUserRoleRepository _userRoleR { get; private set; }
+        public IVulnerabilityRepository _vultR { get; private set; }
+        public IVulnerabilityLangRepository _vultLangR { get; private set; }
 
         public int Complete()
         {
             return this._ctx.SaveChanges();
+        }
+
+        public async Task<int> CompleteAsync()
+        {
+            return await this._ctx.SaveChangesAsync();
         }
 
         public void Dispose()

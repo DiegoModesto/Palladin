@@ -12,12 +12,12 @@ namespace Palladin.Data.Entity
         public Enums.ProjType ProjectType { get; set; }
         public string Subsidiary { get; set; }
 
-        public virtual Guid? CustomerId { get; set; }
-        public UserEntity Customer { get; set; }
+        public Guid? CustomerId { get; set; }
+        [NotMapped]
+        public virtual UserEntity Customer { get; set; }
 
-        public virtual Guid? UserId { get; set; }
-        public UserEntity User { get; set; }
-
-        public ProjectVulnerabilityEntity ProjectVulnerability { get; set; }
+        public Guid? UserId { get; set; }
+        [NotMapped]
+        public virtual UserEntity User { get; set; }
     }
 }

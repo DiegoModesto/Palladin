@@ -15,6 +15,20 @@ namespace Palladin.Data.EntityFramework.Configuration
 
             builder.Property(x => x.CreatedDate).HasColumnType("datetime2").IsRequired();
             builder.Property(x => x.IsDeleted).IsRequired();
+
+            /*
+            modelBuilder.Entity<MediaPVEntity>().HasKey();
+            modelBuilder.Entity<MediaPVEntity>()
+                .HasOne<MediaEntity>(a => a.Media)
+                .WithMany(b => b.MediaPVEntities)
+                .HasForeignKey(c => c.MediaId);
+            modelBuilder.Entity<MediaPVEntity>()
+                .HasOne<ProjectVulnerabilityEntity>(a => a.ProjectVulnerability)
+                .WithMany(b => b.MediaPVEntities)
+                .HasForeignKey(c => c.ProjectVulnerabilityId);
+             
+             
+             */
         }
     }
 }
