@@ -1,5 +1,4 @@
-﻿using System.IO;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 namespace Palladin.Presentation.API
@@ -8,13 +7,13 @@ namespace Palladin.Presentation.API
     {
         public static void Main(string[] args)
         {
-            CreateWebHostBuilder(args).Run();
+            CreateWebHostBuilder(args)
+                .Build()
+                .Run();
         }
 
-        public static IWebHost CreateWebHostBuilder(string[] args) =>
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>()
-                .UseUrls(@"https://local.esecurity.com.br")
-                .Build();
+                .UseStartup<Startup>();
     }
 }

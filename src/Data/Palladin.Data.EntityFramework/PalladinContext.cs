@@ -412,6 +412,36 @@ namespace Palladin.Data.EntityFramework
                     Status = Enums.ProjStatus.New
                 }
             );
+
+            var roleAdm = Guid.NewGuid();
+            var roleContributor = Guid.NewGuid();
+            modelBuilder.Entity<RoleEntity>().HasData(
+                new RoleEntity
+                {
+                    Id = roleAdm,
+                    Level = 9,
+                    Name = "admin",
+                },
+                new RoleEntity
+                {
+                    Id = roleContributor,
+                    Level = 0,
+                    Name = "contributor"
+                }
+            );
+
+            modelBuilder.Entity<UserRoleEntity>().HasData(
+                new UserRoleEntity
+                {
+                    RoleId = roleAdm,
+                    UserId = esecUser
+                },
+                new UserRoleEntity
+                {
+                    RoleId = roleContributor,
+                    UserId = esecUser
+                }
+            );
             #endregion
 
             base.OnModelCreating(modelBuilder);

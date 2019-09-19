@@ -20,6 +20,7 @@ namespace Palladin.Presentation.API.Controllers.V1
             this._identityService = identityService;
         }
 
+        [AllowAnonymous]
         [HttpPost(ApiRoutes.Identity.Login)]
         public async Task<IActionResult> Login([FromBody]UserLoginRequest request)
         {

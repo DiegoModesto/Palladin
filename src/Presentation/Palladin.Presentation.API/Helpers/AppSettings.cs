@@ -5,5 +5,6 @@
         public string Secret { get; set; }
         public int ExpirationTokenTime { get; set; }
         public string ConString { get; set; }
+        public string DomainName { get; set; }
     }
 }
