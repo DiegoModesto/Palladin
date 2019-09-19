@@ -1,14 +1,16 @@
 ﻿using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Palladin.Presentation.API.Authorization;
 using Palladin.Presentation.API.Filters;
-using Palladin.Presentation.API.Helpers;
+using Palladin.Services.LogicService.Contracts;
+using Palladin.Services.LogicService.Options;
+using Palladin.Services.LogicService.Services;
 using System.Text;
 
 namespace Palladin.Presentation.API.Installers
@@ -61,6 +63,14 @@ namespace Palladin.Presentation.API.Installers
                 });
             });
             services.AddSingleton<IAuthorizationHandler, WorksForCompanyHandler>();
+
+            services
+                .Configure<AppSettings>(configuration)
+                //.AddSingleton(x => x.GetRequiredService<IOptions<AppSettings>>().Value);
+                .AddSingleton(appSettings);
+
+
+            services.AddScoped<IIdentityService, IdentityService>();
 
             //services.AddSingleton<IUriService>(provider =>
             //{

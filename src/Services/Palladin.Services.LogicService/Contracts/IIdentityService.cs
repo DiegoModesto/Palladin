@@ -5,6 +5,7 @@ namespace Palladin.Services.LogicService.Contracts
 {
     public interface IIdentityService
     {
-        Task<AuthenticationResult> LoginAsync(string email, string password);
+        Task<AuthenticationResult> LoginAsync(string login, string password);
+        Task<AuthenticationResult> RefreshToken(string token, string refreshToken);
     }
 }

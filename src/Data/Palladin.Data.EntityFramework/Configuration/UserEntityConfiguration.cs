@@ -19,6 +19,8 @@ namespace Palladin.Data.EntityFramework.Configuration
 
             builder.Property(x => x.CreatedDate).HasColumnType("datetime2").IsRequired();
             builder.Property(x => x.IsDeleted).IsRequired();
+
+            builder.HasIndex(x => x.Login).IsUnique();
         }
     }
 }

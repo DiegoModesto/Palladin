@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Palladin.Data.Entity;
+﻿using Palladin.Data.Entity;
 using Palladin.Data.EntityFramework;
 using Palladin.Data.Repository.Interfaces;
 using System;

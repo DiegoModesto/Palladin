@@ -10,6 +10,7 @@ namespace Palladin.Data.Entity
         public string Password { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
+        public bool IsBlocked { get; set; }
         public Enums.UserType UserType { get; set; }
 
         public ProjectEntity Project { get; set; }
