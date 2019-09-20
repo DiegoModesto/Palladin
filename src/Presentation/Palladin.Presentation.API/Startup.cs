@@ -41,6 +41,12 @@ namespace Palladin.Presentation.API
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseAuthentication();
+            app.UseCors(x =>
+            {
+                x.AllowAnyOrigin();
+                x.AllowAnyMethod();
+                x.AllowAnyHeader();
+            });
             app.UseSwagger(opt =>
             {
                 {

@@ -34,6 +34,19 @@ namespace Palladin.Presentation.API.Installers
             };
 
             services
+                .AddCors(x =>
+                {
+                    x.AddPolicy("AllowReactJs",
+                        builder =>
+                        {
+                            builder
+                                .WithOrigins("http://localhost:3000",
+                                            "https://localhost:3000")
+                                .AllowAnyOrigin()
+                                .AllowAnyMethod();
+                        });
+                });
+            services
                 .AddMvc(options =>
                 {
                     options.EnableEndpointRouting = false;
