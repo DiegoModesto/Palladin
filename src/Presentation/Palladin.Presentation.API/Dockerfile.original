@@ -6,8 +6,6 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/core/sdk:2.2-stretch AS build
 WORKDIR /src
 COPY ["src/Presentation/Palladin.Presentation.API/Palladin.Presentation.API.csproj", "src/Presentation/Palladin.Presentation.API/"]
-COPY ["src/Services/Palladin.Services.LogicService/Palladin.Services.LogicService.csproj", "src/Services/Palladin.Services.LogicService/"]
-COPY ["src/Services/Palladin.Services.ApiContract/Palladin.Services.ApiContract.csproj", "src/Services/Palladin.Services.ApiContract/"]
 RUN dotnet restore "src/Presentation/Palladin.Presentation.API/Palladin.Presentation.API.csproj"
 COPY . .
 WORKDIR "/src/src/Presentation/Palladin.Presentation.API"

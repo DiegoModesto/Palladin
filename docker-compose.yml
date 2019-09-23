@@ -1,0 +1,41 @@
+version: '3.4'
+
+networks:
+  localdev:
+    driver: bridge
+
+services:
+  webapi:
+    image: ${DOCKER_REGISTRY-}palladinpresentationapi
+    container_name: "webapi"
+    build:
+      context: .
+      dockerfile: "src/Presentation/Palladin.Presentation.API/Dockerfile"
+    ports:
+      - "5000:80"
+      - "5001:443"
+    networks:
+      - localdev
+    depends_on:
+      - dbserver
+      - dbredis
+
+  dbserver:
+    image: "microsoft/mssql-server-linux"
+    container_name: "dbserver"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=MyComplexPass!234
+      - MSSQL_TCP_PORT=1433
+    ports:
+      - "1433:1433"
+    networks:
+      - localdev
+
+  dbredis:
+    image: "redis:alpine"
+    container_name: "dbredis"
+    ports:
+      - "6379:6379"
+    networks:
+      - localdev
