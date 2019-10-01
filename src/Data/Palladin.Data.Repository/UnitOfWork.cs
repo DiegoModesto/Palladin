@@ -9,6 +9,8 @@ namespace Palladin.Data.Repository
     {
         public readonly PalladinContext _ctx;
 
+        public UnitOfWork() : this(connectionString: DBGlobals.DbConnection) { }
+
         public UnitOfWork(string connectionString)
             : this(ctx: new PalladinContext(connectionString))
         {

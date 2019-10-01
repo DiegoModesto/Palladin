@@ -66,7 +66,8 @@ namespace Palladin.Data.EntityFramework
                 new UserEntity
                 {
                     Id = clientUser,
-                    Login = DateTime.UtcNow.ToString("yyyyMMddHHmm"),
+                    //Login = DateTime.UtcNow.ToString("yyyyMMddHHmm"),
+                    Login = "201909242158",
                     Password = @"ABHTT1EXWP4xRNB2g/SxaA==", //Client@1qaz2wsx
                     UserName = "Diego Sanches",
                     Email = "diego@cliente.com",
@@ -77,7 +78,8 @@ namespace Palladin.Data.EntityFramework
                 new UserEntity
                 {
                     Id = esecUser,
-                    Login = DateTime.UtcNow.AddHours(1).ToString("yyyyMMddHHmm"),
+                    //Login = DateTime.UtcNow.AddHours(1).ToString("yyyyMMddHHmm"),
+                    Login = "201909242058",
                     Password = @"yf5CUBl5COMEEjiKlvV1Jno7buPOw+a0EE4UyxGPjU4=", //eSecurity@1qaz2wsx
                     UserName = "Administrador [eSecurity]",
                     Email = "adm@esecurity.com",

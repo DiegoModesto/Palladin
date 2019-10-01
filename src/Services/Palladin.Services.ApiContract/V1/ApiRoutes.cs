@@ -10,5 +10,13 @@
         {
             public const string Login = Base + "/identity/login";
         }
+
+        public static class Dashboard
+        {
+            public const string GetCriticalSummary = Base + "/dashboard/getCriticalSummary";
+            public const string GetHighSummary = Base + "/dashboard/getHighSummary";
+            public const string GetMiddleSummary = Base + "/dashboard/getMiddleSummary";
+            public const string GetLowSummary = Base + "/dashboard/getLowSummary";
+        }
     }
 }
