@@ -30,6 +30,7 @@ namespace Palladin.Data.Repository
             _userRoleR = new UserRoleRepository(this._ctx);
             _vultR = new VulnerabilityRepository(this._ctx);
             _vultLangR = new VulnerabilityLangRepository(this._ctx);
+            _companyR = new CompanyRepository(this._ctx);
             #endregion
         }
 
@@ -46,6 +47,7 @@ namespace Palladin.Data.Repository
         public IUserRoleRepository _userRoleR { get; private set; }
         public IVulnerabilityRepository _vultR { get; private set; }
         public IVulnerabilityLangRepository _vultLangR { get; private set; }
+        public ICompanyRepository _companyR { get; set; }
 
         public int Complete()
         {

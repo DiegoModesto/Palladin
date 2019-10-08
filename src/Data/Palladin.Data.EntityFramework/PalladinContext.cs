@@ -24,6 +24,7 @@ namespace Palladin.Data.EntityFramework
         public DbSet<UserRoleEntity> UsersRoles { get; set; }
         public DbSet<VulnerabilityEntity> Vulnerabilities { get; set; }
         public DbSet<VulnerabilityLangEntity> VulnerabilityLangs { get; set; }
+        public DbSet<CompanyEntity> Companies { get; set; }
         //Configurações de MENU
 
         public DbSet<UserMenuEntity> UserMenus { get; set; }
@@ -47,6 +48,7 @@ namespace Palladin.Data.EntityFramework
             modelBuilder.ApplyConfiguration(new UserRoleEntityConfiguration());
             modelBuilder.ApplyConfiguration(new VulnerabilityEntityConfiguration());
             modelBuilder.ApplyConfiguration(new VulnerabilityLangEntityConfiguration());
+            modelBuilder.ApplyConfiguration(new CompanyEntityConfiguration());
 
             modelBuilder
                 .Entity<MediaPVEntity>()
@@ -59,6 +61,27 @@ namespace Palladin.Data.EntityFramework
             #endregion
 
             #region [Seed data]
+            //Company
+            var companyId1 = Guid.NewGuid();
+            var companyId2 = Guid.NewGuid();
+            modelBuilder.Entity<CompanyEntity>().HasData(
+                new CompanyEntity
+                {
+                    Id = companyId1,
+                    Name = "eSecurity",
+                    CreatedDate = DateTime.Now.AddDays(-90),
+                    IsDeleted = false,
+                    MasterCompany = true
+                },
+                new CompanyEntity
+                {
+                    Id = companyId2,
+                    Name = "Custom Company",
+                    CreatedDate = DateTime.Now.AddDays(-90),
+                    IsDeleted = false,
+                    MasterCompany = false
+                }
+            );
             //Users
             var clientUser = Guid.NewGuid();
             var esecUser = Guid.NewGuid();
@@ -72,7 +95,8 @@ namespace Palladin.Data.EntityFramework
                     Email = "diego@cliente.com",
                     CreatedDate = DateTime.Now.AddDays(-90),
                     UserType = Enums.UserType.Client,
-                    IsDeleted = false
+                    IsDeleted = false,
+                    CompanyId = companyId2
                 },
                 new UserEntity
                 {
@@ -83,7 +107,8 @@ namespace Palladin.Data.EntityFramework
                     Email = "adm@esecurity.com",
                     CreatedDate = DateTime.Now.AddDays(-90),
                     UserType = Enums.UserType.eSecurity,
-                    IsDeleted = false
+                    IsDeleted = false,
+                    CompanyId = companyId1
                 }
             );
 

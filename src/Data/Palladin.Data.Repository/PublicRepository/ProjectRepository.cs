@@ -62,6 +62,14 @@ namespace Palladin.Data.Repository.PublicRepository
                     };
         }
 
+        public IEnumerable<ProjectEntity> GetAllByCompanyId(Guid companyId)
+        {
+            return from p in _context.Set<ProjectEntity>()
+                   join u in _context.Set<UserEntity>() on p.UserId equals u.Id
+                   where u.CompanyId.Equals(companyId)
+                   select p;
+        }
+
         public void Dispose()
         {
             this._context.Dispose();

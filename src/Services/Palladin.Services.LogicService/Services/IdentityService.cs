@@ -92,6 +92,21 @@ namespace Palladin.Services.LogicService.Services
 
             return GenerateAuthenticationResultForUser(userId);
         }
+        public async Task<Guid> GetCompanyIdByUserId(string token)
+        {
+            var valitedToken = GetPrincipalFromToken(token);
+            var userId = Guid.Empty;
+            if (valitedToken == null)
+                return userId;
+
+            var jti = valitedToken.Claims.Single(x => x.Type.Equals(JwtRegisteredClaimNames.Jti)).Value;
+            userId = Guid.Parse(valitedToken.Claims.Single(x => x.Type.Equals("Id")).Value);
+
+            using (var uow = new UnitOfWork(this._appSettings.ConString))
+            {
+                return uow._userR.GetById(userId).CompanyId;
+            }
+        }
 
         private ClaimsPrincipal GetPrincipalFromToken(string token)
         {
@@ -146,6 +161,7 @@ namespace Palladin.Services.LogicService.Services
             var claims = new List<Claim>
             {
                 new Claim(type: "Id", value: user.Id.ToString()),
+                new Claim(type: "Company", value: user.CompanyId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Sub, user.Email),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())

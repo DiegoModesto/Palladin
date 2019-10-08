@@ -40,5 +40,26 @@ namespace Palladin.Presentation.API.Controllers.V1
                 RefreshToken = authResponse.RefreshToken
             });
         }
+
+        [AllowAnonymous]
+        [HttpPost(ApiRoutes.Identity.RefreshToken)]
+        public async Task<IActionResult> RefreshToken([FromBody]RefreshTokenRequest request)
+        {
+            var authResponse = await _identityService.RefreshToken(request.Token, request.RefreshToken);
+
+            if(!authResponse.Success)
+            {
+                return BadRequest(new AuthFailedResponse
+                {
+                    Errors = authResponse.Errors
+                });
+            }
+
+            return Ok(new AuthSuccessResponse
+            {
+                Token = authResponse.Token,
+                RefreshToken = authResponse.RefreshToken
+            });
+        }
     }
 }

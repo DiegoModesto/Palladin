@@ -9,6 +9,16 @@
         public static class Identity
         {
             public const string Login = Base + "/identity/login";
+            public const string RefreshToken = Base + "/identity/refresh";
+        }
+
+        public static class Project
+        {
+            public const string GetAll = Base + "/project/getAll";
+            public const string GetById = Base + "/project/getById";
+            public const string Create = Base + "/project/create";
+            public const string Update = Base + "/project/update";
+            public const string Delete = Base + "/project/delete";
         }
     }
 }

@@ -19,6 +19,51 @@ namespace Palladin.Data.EntityFramework.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Palladin.Data.Entity.CompanyEntity", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted");
+
+                    b.Property<bool>("MasterCompany")
+                        .ValueGeneratedOnAdd()
+                        .HasDefaultValue(false);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)")
+                        .HasMaxLength(50);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Companies");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9c4e7692-b1ac-4936-94bc-a94bb4e3e4fd"),
+                            CreatedDate = new DateTime(2019, 7, 10, 11, 30, 22, 635, DateTimeKind.Local).AddTicks(6690),
+                            IsDeleted = false,
+                            MasterCompany = true,
+                            Name = "eSecurity"
+                        },
+                        new
+                        {
+                            Id = new Guid("7e740af1-b6e7-4496-aee9-5f359c838d35"),
+                            CreatedDate = new DateTime(2019, 7, 10, 11, 30, 22, 637, DateTimeKind.Local).AddTicks(7327),
+                            IsDeleted = false,
+                            MasterCompany = false,
+                            Name = "Custom Company"
+                        });
+                });
+
             modelBuilder.Entity("Palladin.Data.Entity.MediaEntity", b =>
                 {
                     b.Property<Guid>("Id")
@@ -89,55 +134,55 @@ namespace Palladin.Data.EntityFramework.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("100db587-84b3-4217-b8e2-fb04ecc2e256"),
+                            Id = new Guid("ab7f20bd-2297-4efa-8209-cb97f180e815"),
                             Name = "Client",
                             Order = (short)0,
                             Path = "/projects"
                         },
                         new
                         {
-                            Id = new Guid("16720e1a-bc0c-45ce-ad9c-7697e836201c"),
+                            Id = new Guid("ad4b22e0-334b-4332-8dbb-4cf68f09afef"),
                             Name = "Client",
                             Order = (short)0,
-                            ParentId = new Guid("100db587-84b3-4217-b8e2-fb04ecc2e256"),
+                            ParentId = new Guid("ab7f20bd-2297-4efa-8209-cb97f180e815"),
                             Path = "/projects/view-details"
                         },
                         new
                         {
-                            Id = new Guid("e6e3a111-78e1-427f-835b-a8e6b53d9d41"),
+                            Id = new Guid("3da1214e-da37-4ee6-8a08-097b113ab714"),
                             Name = "eSecurity",
                             Order = (short)0,
                             Path = "/projects"
                         },
                         new
                         {
-                            Id = new Guid("ab87691e-d214-40f0-8544-c715c3ce4b56"),
+                            Id = new Guid("54c067f3-a87e-4aa2-9682-28c3806c6145"),
                             Name = "eSecurity",
                             Order = (short)0,
-                            ParentId = new Guid("e6e3a111-78e1-427f-835b-a8e6b53d9d41"),
+                            ParentId = new Guid("3da1214e-da37-4ee6-8a08-097b113ab714"),
                             Path = "/projects/create"
                         },
                         new
                         {
-                            Id = new Guid("5bf33c9a-d0de-4f18-8a99-04d4a197dbd1"),
+                            Id = new Guid("16b859ea-e3bd-43ec-9576-075b436a4ee5"),
                             Name = "eSecurity",
                             Order = (short)1,
-                            ParentId = new Guid("e6e3a111-78e1-427f-835b-a8e6b53d9d41"),
+                            ParentId = new Guid("3da1214e-da37-4ee6-8a08-097b113ab714"),
                             Path = "/projects/join"
                         },
                         new
                         {
-                            Id = new Guid("baf1ba1e-ca02-452b-90b5-4f174f656f7d"),
+                            Id = new Guid("7716ae3e-86c7-42c5-a18b-230e6ebffb8b"),
                             Name = "eSecurity",
                             Order = (short)1,
                             Path = "/vulnerabilities"
                         },
                         new
                         {
-                            Id = new Guid("c88f87c1-4e87-424a-9096-f43aaf210a64"),
+                            Id = new Guid("51ad8377-bbe2-41f2-973d-c17720289763"),
                             Name = "eSecurity",
                             Order = (short)0,
-                            ParentId = new Guid("baf1ba1e-ca02-452b-90b5-4f174f656f7d"),
+                            ParentId = new Guid("7716ae3e-86c7-42c5-a18b-230e6ebffb8b"),
                             Path = "/vulnerabilities/create"
                         });
                 });
@@ -166,7 +211,7 @@ namespace Palladin.Data.EntityFramework.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f7b3a370-6ccc-46f8-b5e9-8d8babae1bcb"),
+                            Id = new Guid("07706ac6-b130-4ad5-b109-abff059bd3f4"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "GET",
@@ -174,7 +219,7 @@ namespace Palladin.Data.EntityFramework.Migrations
                         },
                         new
                         {
-                            Id = new Guid("252e1bb1-bb79-4188-b0e5-e895cdfe0a12"),
+                            Id = new Guid("1c7b67f2-d79a-4804-b626-16c826c6870d"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "POST",
@@ -182,7 +227,7 @@ namespace Palladin.Data.EntityFramework.Migrations
                         },
                         new
                         {
-                            Id = new Guid("a9e4a15f-a3b6-482d-a61f-f9ae929681bf"),
+                            Id = new Guid("d8ac6cd3-3f6e-4d56-9589-8297d17d03df"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "PUT",
@@ -190,7 +235,7 @@ namespace Palladin.Data.EntityFramework.Migrations
                         },
                         new
                         {
-                            Id = new Guid("6bdd1943-66e8-41a9-9662-79b602c02df9"),
+                            Id = new Guid("170ff1d8-525c-4ca2-99a3-2067bb61a5a5"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "DELETE",
@@ -198,7 +243,7 @@ namespace Palladin.Data.EntityFramework.Migrations
                         },
                         new
                         {
-                            Id = new Guid("d4607f91-cc0c-4b6c-94c9-6c8634df9cca"),
+                            Id = new Guid("dad9b360-fb83-4b3e-8fea-188be8aa0b61"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "IP",
@@ -206,7 +251,7 @@ namespace Palladin.Data.EntityFramework.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7a5b840b-808a-4ca2-9ded-e028a9ace417"),
+                            Id = new Guid("e1a264ef-b58b-4f15-8eee-69ec2e0d6f86"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "FTP",
@@ -214,7 +259,7 @@ namespace Palladin.Data.EntityFramework.Migrations
                         },
                         new
                         {
-                            Id = new Guid("2edb9536-02cf-426e-8bd7-068dbb5d0416"),
+                            Id = new Guid("a63c67f1-02a9-4423-a066-61300db747df"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "SSH",
@@ -222,7 +267,7 @@ namespace Palladin.Data.EntityFramework.Migrations
                         },
                         new
                         {
-                            Id = new Guid("839c6311-2264-47cc-a3c8-a4ba478038e9"),
+                            Id = new Guid("a32cf0e4-38e7-457a-8320-5b19edaa62c0"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "SSL",
@@ -230,7 +275,7 @@ namespace Palladin.Data.EntityFramework.Migrations
                         },
                         new
                         {
-                            Id = new Guid("7a12b770-65fd-4d1f-82ee-6ccb117b5de5"),
+                            Id = new Guid("cdb2ae67-48cc-49a8-b849-7c0a538dcb32"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "TELNET",
@@ -238,7 +283,7 @@ namespace Palladin.Data.EntityFramework.Migrations
                         },
                         new
                         {
-                            Id = new Guid("4d59b5d8-26bb-4550-a732-318cfa25d187"),
+                            Id = new Guid("5fc94903-beab-4e40-a64f-c7351511910e"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "SMTP",
@@ -246,7 +291,7 @@ namespace Palladin.Data.EntityFramework.Migrations
                         },
                         new
                         {
-                            Id = new Guid("0acbea9d-6369-42e5-ba1b-723e6781d46f"),
+                            Id = new Guid("8e969de9-4557-4516-831d-87896014ec0a"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "POP3",
@@ -254,7 +299,7 @@ namespace Palladin.Data.EntityFramework.Migrations
                         },
                         new
                         {
-                            Id = new Guid("28791c88-6096-4b1e-8859-210933b89f89"),
+                            Id = new Guid("a511a9a3-746b-48da-a36a-fdfa6035983f"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "IMAP4",
@@ -262,7 +307,7 @@ namespace Palladin.Data.EntityFramework.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8803c3cd-2c7d-4218-806b-2cc055b9608a"),
+                            Id = new Guid("ba981dba-4aa9-495a-b575-95f119e415e9"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "HTTP",
@@ -270,7 +315,7 @@ namespace Palladin.Data.EntityFramework.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8265a8e8-6d5f-4cb7-ade4-1e18e905d3e2"),
+                            Id = new Guid("41f5cf29-eeea-4c6b-94d8-1f0b4cb2bca2"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "HTTPS",
@@ -278,7 +323,7 @@ namespace Palladin.Data.EntityFramework.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b85812c6-ef6a-4566-9aa0-6690af3341c6"),
+                            Id = new Guid("8ba96235-61db-4364-aefb-1597b72d415b"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsDeleted = false,
                             Name = "SIP",
@@ -319,10 +364,10 @@ namespace Palladin.Data.EntityFramework.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("58073de5-84f0-4961-a6cd-b1525c2c9a88"),
+                            Id = new Guid("2407d083-3301-4ecf-800b-6a7b8b6d2e0d"),
                             CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EndDate = new DateTime(2019, 11, 25, 21, 12, 27, 525, DateTimeKind.Utc).AddTicks(1512),
-                            InitialDate = new DateTime(2019, 11, 18, 21, 12, 27, 525, DateTimeKind.Utc).AddTicks(1122),
+                            EndDate = new DateTime(2019, 12, 14, 14, 30, 22, 640, DateTimeKind.Utc).AddTicks(9137),
+                            InitialDate = new DateTime(2019, 12, 7, 14, 30, 22, 640, DateTimeKind.Utc).AddTicks(8752),
                             IsDeleted = false,
                             Name = "Projeto 01 [Web]: <br />Domínio: http://www.siteinseguro.com.br/",
                             ProjectType = (short)0,
@@ -378,45 +423,45 @@ namespace Palladin.Data.EntityFramework.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("23cb8bd2-1163-4e13-a57c-6ecb23ef3101"),
-                            CreatedDate = new DateTime(2019, 11, 8, 21, 12, 27, 525, DateTimeKind.Utc).AddTicks(3913),
+                            Id = new Guid("24b8f71b-d0b2-4fe4-a947-65e5caf20516"),
+                            CreatedDate = new DateTime(2019, 11, 27, 14, 30, 22, 641, DateTimeKind.Utc).AddTicks(1466),
                             Environment = "register.php",
                             FiledOrCookieName = "password",
                             IsDeleted = false,
-                            MethodProtocolId = new Guid("252e1bb1-bb79-4188-b0e5-e895cdfe0a12"),
+                            MethodProtocolId = new Guid("1c7b67f2-d79a-4804-b626-16c826c6870d"),
                             Port = "80",
-                            ProjectId = new Guid("58073de5-84f0-4961-a6cd-b1525c2c9a88"),
+                            ProjectId = new Guid("2407d083-3301-4ecf-800b-6a7b8b6d2e0d"),
                             Status = (short)1,
-                            UserId = new Guid("4b4ee7d4-80eb-47c2-98bc-6c3e1bd06f7e"),
-                            VulnerabilityId = new Guid("a6ed278a-92a7-4d09-9fe4-52aed8091f70")
+                            UserId = new Guid("012d8159-efbd-4aa9-854c-c624ffaf8afe"),
+                            VulnerabilityId = new Guid("6cf22d19-8a6b-48b2-9373-c08d0d5eb7e6")
                         },
                         new
                         {
-                            Id = new Guid("6786ac87-8166-4e0c-813d-d0b5d4391886"),
-                            CreatedDate = new DateTime(2019, 11, 8, 21, 12, 27, 525, DateTimeKind.Utc).AddTicks(6896),
+                            Id = new Guid("2c98ae90-8391-4770-b298-bfe6182fdfb2"),
+                            CreatedDate = new DateTime(2019, 11, 27, 14, 30, 22, 641, DateTimeKind.Utc).AddTicks(4374),
                             Environment = "register.php",
                             FiledOrCookieName = "retype-password",
                             IsDeleted = false,
-                            MethodProtocolId = new Guid("252e1bb1-bb79-4188-b0e5-e895cdfe0a12"),
+                            MethodProtocolId = new Guid("1c7b67f2-d79a-4804-b626-16c826c6870d"),
                             Port = "80",
-                            ProjectId = new Guid("58073de5-84f0-4961-a6cd-b1525c2c9a88"),
+                            ProjectId = new Guid("2407d083-3301-4ecf-800b-6a7b8b6d2e0d"),
                             Status = (short)1,
-                            UserId = new Guid("4b4ee7d4-80eb-47c2-98bc-6c3e1bd06f7e"),
-                            VulnerabilityId = new Guid("a6ed278a-92a7-4d09-9fe4-52aed8091f70")
+                            UserId = new Guid("012d8159-efbd-4aa9-854c-c624ffaf8afe"),
+                            VulnerabilityId = new Guid("6cf22d19-8a6b-48b2-9373-c08d0d5eb7e6")
                         },
                         new
                         {
-                            Id = new Guid("07316f55-c7fd-4d59-abb3-9fa5f7c240b9"),
-                            CreatedDate = new DateTime(2019, 11, 8, 21, 12, 27, 525, DateTimeKind.Utc).AddTicks(6916),
+                            Id = new Guid("bef6203f-f2d1-4318-bf25-5386985f1477"),
+                            CreatedDate = new DateTime(2019, 11, 27, 14, 30, 22, 641, DateTimeKind.Utc).AddTicks(4398),
                             Environment = "contato.php",
                             FiledOrCookieName = "name",
                             IsDeleted = false,
-                            MethodProtocolId = new Guid("252e1bb1-bb79-4188-b0e5-e895cdfe0a12"),
+                            MethodProtocolId = new Guid("1c7b67f2-d79a-4804-b626-16c826c6870d"),
                             Port = "80",
-                            ProjectId = new Guid("58073de5-84f0-4961-a6cd-b1525c2c9a88"),
+                            ProjectId = new Guid("2407d083-3301-4ecf-800b-6a7b8b6d2e0d"),
                             Status = (short)1,
-                            UserId = new Guid("4b4ee7d4-80eb-47c2-98bc-6c3e1bd06f7e"),
-                            VulnerabilityId = new Guid("cef9fe0b-482a-421a-b3bb-e092607f2aa0")
+                            UserId = new Guid("012d8159-efbd-4aa9-854c-c624ffaf8afe"),
+                            VulnerabilityId = new Guid("051320f5-a68f-44a5-8ecd-e3f4c016ad61")
                         });
                 });
 
@@ -461,13 +506,13 @@ namespace Palladin.Data.EntityFramework.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b4e07036-f629-4635-86f5-0d5ea620299b"),
+                            Id = new Guid("b98569e2-509e-4f50-b5c3-668ee708de9e"),
                             Level = (short)9,
                             Name = "admin"
                         },
                         new
                         {
-                            Id = new Guid("7f56a0c5-c2f3-48c8-9c06-3c5c8e83062a"),
+                            Id = new Guid("3a4d024d-1559-42fd-832f-5d11fed20e26"),
                             Level = (short)0,
                             Name = "contributor"
                         });
@@ -477,6 +522,8 @@ namespace Palladin.Data.EntityFramework.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("CompanyId");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -509,6 +556,8 @@ namespace Palladin.Data.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CompanyId");
+
                     b.HasIndex("Email")
                         .IsUnique()
                         .HasFilter("[Email] IS NOT NULL");
@@ -525,24 +574,26 @@ namespace Palladin.Data.EntityFramework.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("361f362b-8100-41bb-8475-fd71b1a0eb2f"),
-                            CreatedDate = new DateTime(2019, 6, 21, 18, 12, 27, 521, DateTimeKind.Local).AddTicks(5808),
+                            Id = new Guid("34996227-583a-4352-9833-592c10cd00a1"),
+                            CompanyId = new Guid("9c4e7692-b1ac-4936-94bc-a94bb4e3e4fd"),
+                            CreatedDate = new DateTime(2019, 7, 10, 11, 30, 22, 639, DateTimeKind.Local).AddTicks(4046),
                             Email = "diego@cliente.com",
                             IsBlocked = false,
                             IsDeleted = false,
-                            Login = "201909192112",
+                            Login = "201910081430",
                             Password = "ABHTT1EXWP4xRNB2g/SxaA==",
                             UserName = "Diego Sanches",
                             UserType = (short)1
                         },
                         new
                         {
-                            Id = new Guid("4b4ee7d4-80eb-47c2-98bc-6c3e1bd06f7e"),
-                            CreatedDate = new DateTime(2019, 6, 21, 18, 12, 27, 523, DateTimeKind.Local).AddTicks(3939),
+                            Id = new Guid("012d8159-efbd-4aa9-854c-c624ffaf8afe"),
+                            CompanyId = new Guid("7e740af1-b6e7-4496-aee9-5f359c838d35"),
+                            CreatedDate = new DateTime(2019, 7, 10, 11, 30, 22, 639, DateTimeKind.Local).AddTicks(4956),
                             Email = "adm@esecurity.com",
                             IsBlocked = false,
                             IsDeleted = false,
-                            Login = "201909192212",
+                            Login = "201910081530",
                             Password = "yf5CUBl5COMEEjiKlvV1Jno7buPOw+a0EE4UyxGPjU4=",
                             UserName = "Administrador [eSecurity]",
                             UserType = (short)0
@@ -565,18 +616,18 @@ namespace Palladin.Data.EntityFramework.Migrations
                     b.HasData(
                         new
                         {
-                            MenuId = new Guid("100db587-84b3-4217-b8e2-fb04ecc2e256"),
-                            UserId = new Guid("361f362b-8100-41bb-8475-fd71b1a0eb2f")
+                            MenuId = new Guid("ab7f20bd-2297-4efa-8209-cb97f180e815"),
+                            UserId = new Guid("34996227-583a-4352-9833-592c10cd00a1")
                         },
                         new
                         {
-                            MenuId = new Guid("e6e3a111-78e1-427f-835b-a8e6b53d9d41"),
-                            UserId = new Guid("4b4ee7d4-80eb-47c2-98bc-6c3e1bd06f7e")
+                            MenuId = new Guid("3da1214e-da37-4ee6-8a08-097b113ab714"),
+                            UserId = new Guid("012d8159-efbd-4aa9-854c-c624ffaf8afe")
                         },
                         new
                         {
-                            MenuId = new Guid("baf1ba1e-ca02-452b-90b5-4f174f656f7d"),
-                            UserId = new Guid("4b4ee7d4-80eb-47c2-98bc-6c3e1bd06f7e")
+                            MenuId = new Guid("7716ae3e-86c7-42c5-a18b-230e6ebffb8b"),
+                            UserId = new Guid("012d8159-efbd-4aa9-854c-c624ffaf8afe")
                         });
                 });
 
@@ -595,13 +646,13 @@ namespace Palladin.Data.EntityFramework.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = new Guid("4b4ee7d4-80eb-47c2-98bc-6c3e1bd06f7e"),
-                            RoleId = new Guid("b4e07036-f629-4635-86f5-0d5ea620299b")
+                            UserId = new Guid("012d8159-efbd-4aa9-854c-c624ffaf8afe"),
+                            RoleId = new Guid("b98569e2-509e-4f50-b5c3-668ee708de9e")
                         },
                         new
                         {
-                            UserId = new Guid("4b4ee7d4-80eb-47c2-98bc-6c3e1bd06f7e"),
-                            RoleId = new Guid("7f56a0c5-c2f3-48c8-9c06-3c5c8e83062a")
+                            UserId = new Guid("012d8159-efbd-4aa9-854c-c624ffaf8afe"),
+                            RoleId = new Guid("3a4d024d-1559-42fd-832f-5d11fed20e26")
                         });
                 });
 
@@ -646,29 +697,29 @@ namespace Palladin.Data.EntityFramework.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a6ed278a-92a7-4d09-9fe4-52aed8091f70"),
+                            Id = new Guid("6cf22d19-8a6b-48b2-9373-c08d0d5eb7e6"),
                             CVSS = "AV:N/AV:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
-                            CreatedDate = new DateTime(2019, 9, 19, 18, 12, 27, 524, DateTimeKind.Local).AddTicks(1021),
+                            CreatedDate = new DateTime(2019, 10, 8, 11, 30, 22, 639, DateTimeKind.Local).AddTicks(9939),
                             IsDeleted = false,
                             Name = "Weak Password Policy",
                             ProjectType = (short)0,
                             References = "http://www.owasp.org/index.php/Testing_for_Weak_password_policy",
                             RiskFactor = (short)3,
                             Tags = "password,weak-password,weak-password-policy,password-policy",
-                            UserId = new Guid("4b4ee7d4-80eb-47c2-98bc-6c3e1bd06f7e")
+                            UserId = new Guid("012d8159-efbd-4aa9-854c-c624ffaf8afe")
                         },
                         new
                         {
-                            Id = new Guid("cef9fe0b-482a-421a-b3bb-e092607f2aa0"),
+                            Id = new Guid("051320f5-a68f-44a5-8ecd-e3f4c016ad61"),
                             CVSS = "AV:N/AV:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
-                            CreatedDate = new DateTime(2019, 9, 19, 18, 12, 27, 524, DateTimeKind.Local).AddTicks(3534),
+                            CreatedDate = new DateTime(2019, 10, 8, 11, 30, 22, 640, DateTimeKind.Local).AddTicks(3031),
                             IsDeleted = false,
                             Name = "Buffer overflow",
                             ProjectType = (short)0,
                             References = "http://www.owasp.org/index.php/buffer_overflow_field",
                             RiskFactor = (short)3,
                             Tags = "field-validation,field-weak",
-                            UserId = new Guid("4b4ee7d4-80eb-47c2-98bc-6c3e1bd06f7e")
+                            UserId = new Guid("012d8159-efbd-4aa9-854c-c624ffaf8afe")
                         });
                 });
 
@@ -704,8 +755,8 @@ namespace Palladin.Data.EntityFramework.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("b8a100e1-a485-453f-8d09-7b05a15fa6bb"),
-                            CreatedDate = new DateTime(2019, 9, 19, 18, 12, 27, 524, DateTimeKind.Local).AddTicks(4534),
+                            Id = new Guid("4da2dc2b-a14f-4064-a1ec-a006b1d7b7ab"),
+                            CreatedDate = new DateTime(2019, 10, 8, 11, 30, 22, 640, DateTimeKind.Local).AddTicks(3973),
                             Description = @"The application does not require users to have strong passwords. The lack of password complexity significantly reduces search space by trying to guess user passwords, facilitating brute force attacks.
                     Thus,
                     it was possible to gain access to the system using a user account that has weak password and easy guessing. From the accessed account,
@@ -714,12 +765,12 @@ namespace Palladin.Data.EntityFramework.Migrations
                             LanguageType = (short)1,
                             Remediation = @"Enter a strong password policy (which ensures password length, complexity, reuse and aging) and / or
                     additional authentication controls (double factor authentication).",
-                            VulnerabilityId = new Guid("a6ed278a-92a7-4d09-9fe4-52aed8091f70")
+                            VulnerabilityId = new Guid("6cf22d19-8a6b-48b2-9373-c08d0d5eb7e6")
                         },
                         new
                         {
-                            Id = new Guid("dc68ca5b-b60f-48f4-be3e-076f81ebac31"),
-                            CreatedDate = new DateTime(2019, 9, 19, 18, 12, 27, 524, DateTimeKind.Local).AddTicks(6577),
+                            Id = new Guid("c581eb3f-8817-469e-83e4-8ae5c2211d7a"),
+                            CreatedDate = new DateTime(2019, 10, 8, 11, 30, 22, 640, DateTimeKind.Local).AddTicks(5451),
                             Description = @"A aplicação não exige que os usuários tenham senhas fortes. A falta de complexidade de senha reduz significamente o espaço de busca ao tentar adivinhar as senhas dos usuários, facilitando ataques de força bruta.
                     Dessa forma,
                     foi possível obter acesso ao sistema utilizando uma conta de usuário que possui senha fraca e de fácil adivinhação.A partir da conta acessada,
@@ -728,12 +779,12 @@ namespace Palladin.Data.EntityFramework.Migrations
                             LanguageType = (short)0,
                             Remediation = @"Introduza uma política de senha forte (que garanta o tamanho, a complexidade, a reutilização e o envelhecimento da senha) e/ou
                     controles de autenticação adicionais (duplo fator de autenticação).",
-                            VulnerabilityId = new Guid("a6ed278a-92a7-4d09-9fe4-52aed8091f70")
+                            VulnerabilityId = new Guid("6cf22d19-8a6b-48b2-9373-c08d0d5eb7e6")
                         },
                         new
                         {
-                            Id = new Guid("a6369c62-0c16-47b8-8da7-754e8c65dc9f"),
-                            CreatedDate = new DateTime(2019, 9, 19, 18, 12, 27, 524, DateTimeKind.Local).AddTicks(6595),
+                            Id = new Guid("b7ea1e53-5390-4e82-a5f1-3d5a09a716ae"),
+                            CreatedDate = new DateTime(2019, 10, 8, 11, 30, 22, 640, DateTimeKind.Local).AddTicks(5473),
                             Description = @"La aplicación no requiere que los usuarios tengan contraseñas seguras. La falta de complejidad de la contraseña reduce significativamente el espacio de búsqueda al tratar de adivinar las contraseñas de los usuarios, lo que facilita los ataques de fuerza bruta.
                     De esa forma,
                     fue posible obtener acceso al sistema utilizando una cuenta de usuario que tiene una contraseña débil y fácil de adivinar.
@@ -742,7 +793,7 @@ namespace Palladin.Data.EntityFramework.Migrations
                             LanguageType = (short)2,
                             Remediation = @"Ingrese una política de contraseña segura (que asegure la longitud, complejidad, reutilización y antigüedad de la contraseña) y / o
                     controles de autenticación adicionales (autenticación de doble factor).",
-                            VulnerabilityId = new Guid("a6ed278a-92a7-4d09-9fe4-52aed8091f70")
+                            VulnerabilityId = new Guid("6cf22d19-8a6b-48b2-9373-c08d0d5eb7e6")
                         });
                 });
 
@@ -791,6 +842,11 @@ namespace Palladin.Data.EntityFramework.Migrations
 
             modelBuilder.Entity("Palladin.Data.Entity.UserEntity", b =>
                 {
+                    b.HasOne("Palladin.Data.Entity.CompanyEntity", "Company")
+                        .WithMany("Users")
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Palladin.Data.Entity.MenuEntity", "Menu")
                         .WithMany()
                         .HasForeignKey("MenuId");

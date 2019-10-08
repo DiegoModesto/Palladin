@@ -12,9 +12,11 @@ namespace Palladin.Data.Entity
         public string Email { get; set; }
         public bool IsBlocked { get; set; }
         public Enums.UserType UserType { get; set; }
-
         public ProjectEntity Project { get; set; }
         public MenuEntity Menu { get; set; }
+
+        public Guid CompanyId { get; set; }
+        public CompanyEntity Company { get; set; }
 
         public virtual ICollection<UserRoleEntity> Roles { get; set; }
     }
