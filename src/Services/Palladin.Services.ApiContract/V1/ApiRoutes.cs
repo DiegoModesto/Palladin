@@ -20,5 +20,13 @@
             public const string Update = Base + "/project/update";
             public const string Delete = Base + "/project/delete";
         }
+
+        public static class Dashboard
+        {
+            public const string GetCriticalSummary = Base + "/dashboard/getCriticalSummary";
+            public const string GetHighSummary = Base + "/dashboard/getHighSummary";
+            public const string GetMiddleSummary = Base + "/dashboard/getMiddleSummary";
+            public const string GetLowSummary = Base + "/dashboard/getLowSummary";
+        }
     }
 }

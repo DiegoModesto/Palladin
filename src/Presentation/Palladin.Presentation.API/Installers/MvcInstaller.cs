@@ -85,13 +85,7 @@ namespace Palladin.Presentation.API.Installers
 
             services.AddScoped<IIdentityService, IdentityService>();
 
-            //services.AddSingleton<IUriService>(provider =>
-            //{
-            //    var accessor = provider.GetRequiredService<IHttpContextAccessor>();
-            //    var request = accessor.HttpContext.Request;
-            //    var absoluteUri = string.Concat(request.Scheme, "://", request.Host.ToUriComponent(), "/");
-            //    return new UriSevice(absoluteUri);
-            //})
+            services.AddSingleton<IDashboardService, DashboardService>();
         }
     }
 }
